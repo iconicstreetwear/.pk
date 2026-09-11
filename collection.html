@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collection — ICONICWEAR</title>
+  <meta name="description" content="Browse the ICONICWEAR first drop — signature pieces built around comfort, identity and everyday streetwear.">
+  <meta property="og:title" content="Collection — ICONICWEAR">
+  <meta property="og:description" content="Browse the ICONICWEAR first drop.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/images/icons/favicon-32.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Cormorant+Garamond:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="site-nav" id="site-nav"></nav>
+
+  <main>
+    <header class="page-header container text-center has-grain">
+      <p class="eyebrow reveal" style="margin-bottom:18px;">The Collection</p>
+      <h1 class="display reveal" id="collection-heading"></h1>
+      <p class="lede center-lede reveal" id="collection-supporting" style="margin-top:20px;"></p>
+    </header>
+
+    <section class="section-tight">
+      <div class="container">
+        <div class="product-grid" id="collection-product-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="js/content.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/products.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("collection-heading").textContent = CONTENT.featuredSection.heading + ".";
+      document.getElementById("collection-supporting").textContent = CONTENT.featuredSection.supporting;
+      document.querySelectorAll(".page-header .reveal").forEach(el => el.classList.add("is-visible"));
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — ICONICWEAR</title>
+  <meta name="description" content="How ICONICWEAR handles information shared through this website.">
+  <meta property="og:title" content="Privacy Policy — ICONICWEAR">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/images/icons/favicon-32.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Cormorant+Garamond:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="site-nav" id="site-nav"></nav>
+
+  <main>
+    <header class="page-header container text-center has-grain">
+      <p class="eyebrow reveal is-visible" style="margin-bottom:18px;" id="privacy-updated"></p>
+      <h1 class="display reveal is-visible" id="privacy-heading"></h1>
+    </header>
+
+    <section class="section-tight">
+      <div class="container" style="max-width:760px;">
+        <div class="policy-list" id="privacy-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="js/content.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const p = CONTENT.privacy;
+      document.getElementById("privacy-heading").textContent = p.heading;
+      document.getElementById("privacy-updated").textContent = p.updated;
+      document.getElementById("privacy-list").innerHTML = p.sections
+        .map(sec => `<div class="policy-item"><h3>${sec.title}</h3><p>${sec.body}</p></div>`)
+        .join("");
+    });
+  </script>
+</body>
+</html>

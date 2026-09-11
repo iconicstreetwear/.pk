@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICONICWEAR — Streetwear Made to Be Worn</title>
+  <meta name="description" content="ICONICWEAR is a Pakistan-focused streetwear brand building its first signature collection.">
+  <meta property="og:title" content="ICONICWEAR — Streetwear Made to Be Worn">
+  <meta property="og:description" content="ICONICWEAR is a Pakistan-focused streetwear brand building its first signature collection.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/images/banners/banner-01.jpg">
+  <link rel="icon" href="assets/images/icons/favicon-32.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Cormorant+Garamond:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="site-nav" id="site-nav"></nav>
+
+  <main>
+    <!-- 1. HERO -->
+    <section class="hero" id="hero" aria-label="Campaign highlights"></section>
+
+    <!-- 2. FIRST DROP (short, centered intro) -->
+    <section class="section-tight" aria-labelledby="featured-heading">
+      <div class="container text-center">
+        <div class="reveal">
+          <h2 class="display section-heading" id="featured-heading"></h2>
+          <p class="lede center-lede" id="featured-supporting" style="margin-top:14px;"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. OUR STORY (compact, centered, textured) -->
+    <section class="section section-charcoal section-border-top has-grain">
+      <div class="container text-center reveal" style="max-width:760px;">
+        <p class="eyebrow" id="story-eyebrow" style="margin-bottom:16px;"></p>
+        <h2 class="display" id="story-heading" style="font-size:clamp(1.8rem,3.6vw,2.8rem);margin-bottom:20px;"></h2>
+        <p class="serif-accent" id="story-body" style="font-size:1.15rem;color:var(--grey);"></p>
+        <a href="about.html" class="home-story-cta" id="story-cta" style="margin-top:24px;display:inline-block;"></a>
+      </div>
+    </section>
+
+    <!-- 4. PRODUCT SHOWCASE -->
+    <section class="section section-border-top">
+      <div class="container text-center">
+        <p class="eyebrow reveal" style="margin-bottom:28px;">The collection</p>
+      </div>
+      <div class="container">
+        <div class="product-grid" id="home-product-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="js/content.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/products.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("featured-heading").textContent = CONTENT.featuredSection.heading;
+      document.getElementById("featured-supporting").textContent = CONTENT.featuredSection.supporting;
+
+      document.getElementById("story-eyebrow").textContent = CONTENT.homeStory.eyebrow;
+      document.getElementById("story-heading").textContent = CONTENT.homeStory.heading;
+      document.getElementById("story-body").textContent = CONTENT.homeStory.body;
+      const cta = document.getElementById("story-cta");
+      cta.textContent = CONTENT.homeStory.ctaLabel;
+      cta.href = CONTENT.homeStory.ctaHref;
+
+      initScrollReveal();
+    });
+  </script>
+</body>
+</html>

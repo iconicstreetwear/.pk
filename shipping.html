@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping — ICONICWEAR</title>
+  <meta name="description" content="Shipping information for ICONICWEAR orders within Pakistan.">
+  <meta property="og:title" content="Shipping — ICONICWEAR">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/images/icons/favicon-32.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Cormorant+Garamond:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="site-nav" id="site-nav"></nav>
+
+  <main>
+    <header class="page-header container text-center has-grain">
+      <p class="eyebrow reveal is-visible" style="margin-bottom:18px;">Delivery</p>
+      <h1 class="display reveal is-visible" id="shipping-heading"></h1>
+      <p class="lede reveal is-visible center-lede" id="shipping-intro" style="margin-top:20px;"></p>
+    </header>
+
+    <section class="section-tight">
+      <div class="container" style="max-width:680px;">
+        <div class="policy-box reveal">
+          <div class="policy-highlight">
+            <span class="eyebrow">Delivery fee</span>
+            <span class="display policy-highlight-value" id="shipping-charge"></span>
+          </div>
+          <ul class="policy-bullets" id="shipping-points"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="js/content.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const s = CONTENT.shipping;
+      document.getElementById("shipping-heading").textContent = s.heading;
+      document.getElementById("shipping-intro").textContent = s.intro;
+      document.getElementById("shipping-charge").textContent = s.charge || "To be confirmed";
+      document.getElementById("shipping-points").innerHTML = s.points.map(p => `<li>${p}</li>`).join("");
+    });
+  </script>
+</body>
+</html>

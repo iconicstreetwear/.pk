@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Returns & Exchanges — ICONICWEAR</title>
+  <meta name="description" content="Returns and exchanges information for ICONICWEAR orders.">
+  <meta property="og:title" content="Returns & Exchanges — ICONICWEAR">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/images/icons/favicon-32.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Cormorant+Garamond:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="site-nav" id="site-nav"></nav>
+
+  <main>
+    <header class="page-header container text-center has-grain">
+      <p class="eyebrow reveal is-visible" style="margin-bottom:18px;">Policy</p>
+      <h1 class="display reveal is-visible" id="returns-heading"></h1>
+      <p class="lede reveal is-visible center-lede" id="returns-intro" style="margin-top:20px;"></p>
+    </header>
+
+    <section class="section-tight">
+      <div class="container" style="max-width:680px;">
+        <div class="policy-box reveal">
+          <ul class="policy-bullets" id="returns-points"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <script src="js/content.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const r = CONTENT.returns;
+      document.getElementById("returns-heading").textContent = r.heading;
+      document.getElementById("returns-intro").textContent = r.intro;
+      document.getElementById("returns-points").innerHTML = r.points.map(p => `<li>${p}</li>`).join("");
+    });
+  </script>
+</body>
+</html>
