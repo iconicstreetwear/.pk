@@ -28,22 +28,12 @@
     </header>
 
     <section class="section-tight">
-      <div class="container">
-        <div class="prose reveal" id="about-intro"></div>
-        <div class="about-image reveal" id="about-image"></div>
+      <div class="container text-center" style="max-width:760px;">
+        <div class="prose center-lede reveal" id="about-intro"></div>
       </div>
     </section>
 
     <section class="section section-charcoal section-border-top">
-      <div class="container">
-        <div class="section-head reveal text-center-head">
-          <h2 class="display section-heading" id="journey-heading" style="font-size:clamp(2rem,4vw,3.2rem);"></h2>
-        </div>
-        <div class="timeline reveal" id="journey-timeline"></div>
-      </div>
-    </section>
-
-    <section class="section section-border-top">
       <div class="container">
         <div class="section-head reveal text-center-head" style="margin-bottom:36px;">
           <h2 class="display section-heading" id="founder-heading" style="font-size:clamp(2rem,4vw,3rem);"></h2>
@@ -66,26 +56,6 @@
 
       document.getElementById("about-heading").textContent = about.heading;
       document.getElementById("about-intro").innerHTML = about.intro.map(p => `<p>${p}</p>`).join("");
-
-      const imgMount = document.getElementById("about-image");
-      const imgWrap = buildImage(about.image, "ICONICWEAR", null);
-      imgWrap.querySelectorAll("img, .placeholder").forEach(el => {
-        el.style.width = "100%";
-        el.style.height = "100%";
-      });
-      while (imgWrap.firstChild) imgMount.appendChild(imgWrap.firstChild);
-
-      // Our journey timeline
-      document.getElementById("journey-heading").textContent = about.journeyHeading;
-      document.getElementById("journey-timeline").innerHTML = about.journey.map(item => `
-        <div class="timeline-item${item.planned ? " is-planned" : ""}">
-          <div class="timeline-year">${item.year || "—"}</div>
-          <div class="timeline-body">
-            <h3>${item.title}${item.planned ? '<span class="planned-tag">Planned</span>' : ""}</h3>
-            <p>${item.body}</p>
-          </div>
-        </div>
-      `).join("");
 
       // Founder — editorial layout with real photo
       document.getElementById("founder-heading").textContent = about.founder.heading;

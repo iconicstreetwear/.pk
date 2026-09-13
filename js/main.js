@@ -154,19 +154,6 @@ function renderFooter() {
 
   mount.innerHTML = `
     <div class="container">
-      <div class="newsletter-block reveal">
-        <div class="newsletter-copy">
-          <h3>${CONTENT.newsletter.heading}</h3>
-          <p>${CONTENT.newsletter.body}</p>
-        </div>
-        <form class="newsletter-form" id="newsletter-form">
-          <label class="sr-only" for="newsletter-email">Email address</label>
-          <input type="email" id="newsletter-email" placeholder="${CONTENT.newsletter.placeholder}" required autocomplete="email">
-          <button type="submit">${CONTENT.newsletter.buttonLabel}</button>
-        </form>
-        <p class="newsletter-status" id="newsletter-status"></p>
-      </div>
-
       <div class="footer-top">
         <div class="footer-brand">
           <a href="index.html" class="nav-logo" id="footer-logo" aria-label="${CONTENT.brand.name} home" style="margin-bottom:16px;"></a>
@@ -205,16 +192,6 @@ function renderFooter() {
   `;
 
   fillLogo(document.getElementById("footer-logo"));
-
-  const form = document.getElementById("newsletter-form");
-  const status = document.getElementById("newsletter-status");
-  if (form) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      status.textContent = CONTENT.newsletter.disclaimer;
-      form.reset();
-    });
-  }
 }
 
 /* ---------- Hero slideshow (home page only) ---------- */
@@ -369,51 +346,6 @@ function initCookieNotice() {
   });
 }
 
-/* ---------- Join list popup ---------- */
-
-function initJoinPopup() {
-  const cfg = CONTENT.popups && CONTENT.popups.newsletterPopup;
-  if (!cfg || !cfg.enabled) return;
-  if (sessionStorage.getItem("icw-join-popup-shown")) return;
-
-  setTimeout(() => {
-    if (sessionStorage.getItem("icw-join-popup-shown")) return;
-    sessionStorage.setItem("icw-join-popup-shown", "1");
-
-    const overlay = document.createElement("div");
-    overlay.className = "join-popup-overlay";
-    overlay.innerHTML = `
-      <div class="join-popup" role="dialog" aria-modal="true" aria-labelledby="join-popup-heading">
-        <button class="join-popup-close" aria-label="Close">×</button>
-        <h3 id="join-popup-heading">${cfg.heading}</h3>
-        <p>${cfg.discountEnabled && cfg.discountText ? cfg.discountText : cfg.body}</p>
-        <form id="join-popup-form">
-          <label class="sr-only" for="join-popup-email">Email address</label>
-          <input type="email" id="join-popup-email" placeholder="${cfg.placeholder}" required autocomplete="email">
-          <button type="submit" class="btn btn-primary btn-block">${cfg.buttonLabel}</button>
-        </form>
-      </div>
-    `;
-    document.body.appendChild(overlay);
-    requestAnimationFrame(() => overlay.classList.add("is-visible"));
-
-    function close() {
-      overlay.classList.remove("is-visible");
-      setTimeout(() => overlay.remove(), 400);
-    }
-
-    overlay.querySelector(".join-popup-close").addEventListener("click", close);
-    overlay.addEventListener("click", (e) => {
-      if (e.target === overlay) close();
-    });
-    overlay.querySelector("#join-popup-form").addEventListener("submit", (e) => {
-      e.preventDefault();
-      overlay.querySelector(".join-popup p").textContent = "This site has no backend yet, so this box isn't connected to a mailing list — but it's ready to be.";
-      overlay.querySelector("form").reset();
-    });
-  }, cfg.delayMs || 8000);
-}
-
 /* ---------- Init ---------- */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -423,5 +355,4 @@ document.addEventListener("DOMContentLoaded", () => {
   initScrollReveal();
   initBackToTop();
   initCookieNotice();
-  initJoinPopup();
 });

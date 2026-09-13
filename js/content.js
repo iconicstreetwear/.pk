@@ -189,41 +189,6 @@ const CONTENT = {
       "The brand is part of a larger journey that began with GoodsifyCo and grew through years of experimenting with ecommerce, products and business.",
       "ICONICWEAR focuses on creating clean, wearable pieces with a streetwear identity — designed to feel distinctive without being difficult to wear.",
     ],
-    image: "assets/images/about/about-01.jpg",
-
-    journeyHeading: "The GoodsifyCo journey",
-    journey: [
-      {
-        year: "2024",
-        title: "GoodsifyCo",
-        body: "The GoodsifyCo idea began and was developed into a real business direction.",
-        planned: false,
-      },
-      {
-        year: "2025",
-        title: "GoodsifyCo came to life",
-        body: "GoodsifyCo moved into ecommerce, initially working with products such as watches and toys through sourcing and dropshipping.",
-        planned: false,
-      },
-      {
-        year: "2026",
-        title: "Clothing",
-        body: "GoodsifyCo expanded into clothing reselling and dropshipping in Canada, gaining experience with products, customers and ecommerce.",
-        planned: false,
-      },
-      {
-        year: "2026",
-        title: "A new direction",
-        body: "After moving to Saudi Arabia, a new direction began to take shape and the ICONICWEAR idea was developed.",
-        planned: false,
-      },
-      {
-        year: "2027",
-        title: "ICONICWEAR",
-        body: "The planned next stage — where ICONICWEAR moves from concept into its own dedicated streetwear identity.",
-        planned: true,
-      },
-    ],
 
     founder: {
       heading: "The person behind ICONICWEAR",
@@ -406,18 +371,8 @@ const CONTENT = {
   },
 
   /* ---------------------------------------------------------
-     NEWSLETTER (footer only — small signup, UI only for now)
-  --------------------------------------------------------- */
-  newsletter: {
-    heading: "Sign up for our newsletter",
-    body: "Get updates on new drops, announcements and ICONICWEAR news.",
-    placeholder: "Enter your email",
-    buttonLabel: "Sign up",
-    disclaimer: "This isn't connected to a mailing list yet — a dedicated newsletter service will be added soon.",
-  },
-
-  /* ---------------------------------------------------------
-     POPUPS — both fully optional and editable
+     POPUPS — the join/newsletter popup has been removed per
+     request; only the cookie notice remains.
   --------------------------------------------------------- */
   popups: {
     cookieNotice: {
@@ -426,16 +381,6 @@ const CONTENT = {
       message: "We use cookies to improve your experience.",
       acceptLabel: "Accept",
       manageLabel: "Manage",
-    },
-    newsletterPopup: {
-      enabled: true,
-      discountEnabled: false,
-      discountText: "",
-      delayMs: 8000,
-      heading: "Join the ICONICWEAR list",
-      body: "New pieces. Upcoming drops. Exclusive announcements.",
-      placeholder: "Your email",
-      buttonLabel: "Join",
     },
   },
 

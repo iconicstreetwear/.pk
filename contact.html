@@ -22,15 +22,20 @@
   <nav class="site-nav" id="site-nav"></nav>
 
   <main>
-    <header class="page-header container text-center">
+    <header class="page-header container text-center has-grain">
       <p class="eyebrow reveal is-visible" style="margin-bottom:18px;">Get in touch</p>
       <h1 class="display reveal is-visible" id="contact-heading"></h1>
       <p class="lede reveal is-visible center-lede" id="contact-sub" style="margin-top:20px;"></p>
     </header>
 
     <section class="section-tight">
-      <div class="container two-col">
-        <div class="reveal">
+      <div class="container text-center" style="max-width:560px;">
+        <div class="contact-cta-row reveal">
+          <a href="#" id="ig-iconicwear" class="btn btn-primary" target="_blank" rel="noopener">Instagram — @iconicstreetwear.pk</a>
+          <button type="button" class="btn btn-outline" id="email-toggle">Email / Contact</button>
+        </div>
+
+        <div class="contact-form-reveal" id="contact-form-reveal">
           <form class="contact-form" id="contact-form">
             <div class="form-row">
               <div class="form-field">
@@ -54,20 +59,6 @@
             <p class="form-status" id="contact-form-status" role="status" aria-live="polite"></p>
             <p class="form-note" id="contact-form-note"></p>
           </form>
-        </div>
-
-        <div class="reveal">
-          <div class="social-row">
-            <p class="eyebrow" style="margin-bottom:4px;">Follow along</p>
-            <a href="#" id="ig-goodsifyco" class="social-link" target="_blank" rel="noopener">
-              <span>Instagram — GoodsifyCo</span>
-              <span class="social-handle" id="ig-goodsifyco-handle"></span>
-            </a>
-            <a href="#" id="ig-iconicwear" class="social-link" target="_blank" rel="noopener">
-              <span>Instagram — ICONICWEAR</span>
-              <span class="social-handle" id="ig-iconicwear-handle"></span>
-            </a>
-          </div>
         </div>
       </div>
     </section>
@@ -105,10 +96,21 @@
       document.getElementById("contact-sub").textContent = CONTENT.contact.supporting;
       document.getElementById("contact-form-note").textContent = CONTENT.contact.formNote;
 
-      document.getElementById("ig-goodsifyco").href = CONTENT.social.goodsifyco.url;
-      document.getElementById("ig-goodsifyco-handle").textContent = CONTENT.social.goodsifyco.handle;
-      document.getElementById("ig-iconicwear").href = CONTENT.social.iconicwear.url;
-      document.getElementById("ig-iconicwear-handle").textContent = CONTENT.social.iconicwear.handle;
+      const igBtn = document.getElementById("ig-iconicwear");
+      igBtn.href = CONTENT.social.iconicwear.url;
+      igBtn.innerHTML = `<span class="btn-icon">${ICONS.instagram}</span> Instagram — ${CONTENT.social.iconicwear.handle}`;
+
+      // "Email / Contact" reveals the EmailJS form in place of always
+      // showing a large box up front.
+      const toggleBtn = document.getElementById("email-toggle");
+      const formReveal = document.getElementById("contact-form-reveal");
+      toggleBtn.addEventListener("click", () => {
+        const isOpen = formReveal.classList.toggle("is-open");
+        toggleBtn.setAttribute("aria-expanded", String(isOpen));
+        if (isOpen) {
+          formReveal.querySelector("#cf-name").focus();
+        }
+      });
 
       // Order process
       document.getElementById("process-heading").textContent = CONTENT.orderProcess.heading;
