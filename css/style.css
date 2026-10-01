@@ -23,6 +23,14 @@
   --accent-emerald-bright: #5fa87c;
   --accent-red: #9a4a42;
 
+  /* Cinematic homepage — warm old-city palette (hero/scroll scenes only) */
+  --cinema-black: #16110c;
+  --cinema-shadow: rgba(20, 13, 7, 0.62);
+  --cinema-sand: #c9a877;
+  --cinema-tan: #b08b5f;
+  --cinema-dust: #7a5c3e;
+  --cinema-ink: #efe6d6;
+
   /* Type */
   --font-display: "Anton", "Archivo Black", Impact, sans-serif;
   --font-accent: "Bebas Neue", "Anton", sans-serif;

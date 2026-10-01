@@ -1,0 +1,240 @@
+/* ============================================================
+   ICONICWEAR — CINEMA.CSS
+   Scroll-driven cinematic opening sequence for the homepage.
+   Loaded only on index.html, after style.css.
+
+   Structure:
+   .cinema-wrap    tall scroll container (sets how long the scene lasts)
+   .cinema-stage   sticky viewport-height stage pinned while scrolling
+   .cinema-layer   individual depth layer, moved via CSS custom
+                   properties (--ty, --scale, --op, --rot) written by
+                   cinema.js on every scroll frame
+   ============================================================ */
+
+.cinema-wrap {
+  position: relative;
+  height: 340vh;
+  background: var(--cinema-black);
+}
+
+@media (max-width: 760px) {
+  .cinema-wrap { height: 260vh; }
+}
+
+.cinema-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--cinema-black);
+  perspective: 1400px;
+  perspective-origin: 50% 42%;
+}
+
+.cinema-layer {
+  position: absolute;
+  inset: 0;
+  will-change: transform, opacity;
+  transform: translate3d(0, calc(var(--ty, 0) * 1px), calc(var(--tz, 0) * 1px)) scale3d(var(--scale, 1), var(--scale, 1), 1) rotate(calc(var(--rot, 0) * 1deg));
+  opacity: var(--op, 1);
+  transform-style: preserve-3d;
+}
+
+/* ---------- Background environment (slowest layer) ---------- */
+.cinema-bg {
+  z-index: 1;
+}
+.cinema-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  filter: saturate(0.86) brightness(0.72) sepia(0.12);
+}
+.cinema-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(22,17,12,0.55) 0%, rgba(22,17,12,0.18) 30%, rgba(22,17,12,0.3) 62%, rgba(22,17,12,0.86) 100%),
+    radial-gradient(ellipse at 50% 45%, rgba(22,17,12,0) 30%, rgba(22,17,12,0.5) 100%);
+}
+
+/* subtle film grain across the whole stage */
+.cinema-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: radial-gradient(rgba(255,255,255,0.9) 0.6px, transparent 0.6px);
+  background-size: 3px 3px;
+}
+
+/* ---------- Opening wordmark (foreground, fastest) ---------- */
+.cinema-word {
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 24px;
+}
+.cinema-word h1 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  color: var(--cinema-ink);
+  font-size: clamp(3rem, 13vw, 9rem);
+  line-height: 0.86;
+  letter-spacing: 0.01em;
+  text-shadow: 0 6px 40px rgba(0,0,0,0.5);
+}
+.cinema-word p {
+  font-family: var(--font-body);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: clamp(0.7rem, 1.4vw, 0.9rem);
+  color: var(--cinema-sand);
+  margin-top: 18px;
+}
+.cinema-scroll-cue {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--cinema-sand);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.cinema-scroll-cue .line {
+  width: 1px;
+  height: 34px;
+  background: linear-gradient(180deg, var(--cinema-sand), transparent);
+  animation: cinema-cue-move 1.8s ease-in-out infinite;
+}
+@keyframes cinema-cue-move {
+  0% { transform: scaleY(0.3); transform-origin: top; opacity: 0.4; }
+  50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+  100% { transform: scaleY(0.3); transform-origin: bottom; opacity: 0.4; }
+}
+
+/* ---------- Model + garment stage (midground) ---------- */
+.cinema-model {
+  z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.cinema-model-frame {
+  position: relative;
+  height: min(78svh, 640px);
+  aspect-ratio: 408 / 612;
+}
+.cinema-model-frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 30px 40px rgba(0,0,0,0.5));
+}
+.cinema-model-frame .garment-state {
+  opacity: 0;
+  transition: none; /* driven entirely by scroll progress via JS-set opacity */
+}
+
+/* ---------- Foreground product beat (fastest, brief) ---------- */
+.cinema-product {
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cinema-product-tag {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+.cinema-product-tag .num {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  color: transparent;
+  -webkit-text-stroke: 1px var(--cinema-sand);
+  text-transform: uppercase;
+}
+.cinema-product-tag .name {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(1.4rem, 3vw, 2.1rem);
+  color: var(--cinema-ink);
+}
+.cinema-product-tag .price {
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: var(--cinema-sand);
+  font-size: 0.95rem;
+}
+
+/* ---------- Environmental frame element (foreground artifact) ---------- */
+.cinema-artifact {
+  z-index: 2;
+  pointer-events: none;
+}
+.cinema-artifact::before,
+.cinema-artifact::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 14%;
+  max-width: 220px;
+  background: linear-gradient(90deg, rgba(10,7,4,0.9), rgba(10,7,4,0));
+}
+.cinema-artifact::before { left: 0; }
+.cinema-artifact::after { right: 0; transform: scaleX(-1); }
+
+/* ---------- Reduced motion: static, still cinematic frame ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .cinema-wrap { height: auto; }
+  .cinema-stage { position: relative; height: 100svh; }
+  .cinema-layer { transform: none !important; opacity: 1 !important; }
+  .cinema-model-frame .garment-state { opacity: 0 !important; }
+  .cinema-model-frame .garment-state:last-child { opacity: 1 !important; }
+  .cinema-scroll-cue { display: none; }
+}
+
+@media (max-width: 760px) {
+  .cinema-model-frame { height: min(58svh, 460px); }
+  .cinema-product-tag .name { font-size: 1.4rem; }
+}
+
+/* ============================================================
+   SCROLL-TILT ENTRANCE (First Drop / Our Story / Products)
+   Lighter-weight scroll participation for the rest of the
+   homepage — layered depth without a pinned stage.
+   ============================================================ */
+.tilt-in {
+  opacity: 0;
+  transform: translate3d(0, 46px, 0) scale3d(0.97, 0.97, 1);
+  transition: opacity 1s var(--ease), transform 1s var(--ease);
+}
+.tilt-in.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt-in { opacity: 1; transform: none; transition: none; }
+}

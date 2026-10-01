@@ -17,28 +17,69 @@
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Cormorant+Garamond:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/cinema.css">
 </head>
 <body>
 
   <nav class="site-nav" id="site-nav"></nav>
 
   <main>
-    <!-- 1. HERO -->
-    <section class="hero" id="hero" aria-label="Campaign highlights"></section>
+    <!-- CINEMATIC OPENING SEQUENCE
+         One pinned scroll stage: environment establishes, wordmark
+         holds and releases, the model rises and the garment
+         cross-fades through real ICONICWEAR states, then a product
+         beat surfaces before handing off into the normal page flow. -->
+    <div class="cinema-wrap" id="cinema-wrap">
+      <div class="cinema-stage">
+        <div class="cinema-layer cinema-bg">
+          <img src="assets/images/cinema/env-archway.jpg" alt="" loading="eager">
+        </div>
 
-    <!-- 2. FIRST DROP (short, centered intro) -->
+        <div class="cinema-layer cinema-artifact" aria-hidden="true"></div>
+
+        <div class="cinema-layer cinema-word">
+          <h1 id="cinema-brand"></h1>
+          <p id="cinema-tagline"></p>
+        </div>
+
+        <div class="cinema-layer cinema-model">
+          <div class="cinema-model-frame">
+            <img class="garment-state" src="assets/images/cinema/model-base.png" alt="ICONICWEAR model" loading="eager" style="opacity:1;">
+            <img class="garment-state" src="assets/images/cinema/overlay-logo.png" alt="" aria-hidden="true" data-overlay="logo">
+            <img class="garment-state" src="assets/images/cinema/overlay-black-tee.png" alt="" aria-hidden="true" data-overlay="black">
+          </div>
+        </div>
+
+        <div class="cinema-layer cinema-product">
+          <div class="cinema-product-tag">
+            <span class="num" id="cinema-product-num"></span>
+            <span class="name" id="cinema-product-name"></span>
+            <span class="price" id="cinema-product-price"></span>
+          </div>
+        </div>
+
+        <div class="cinema-grain" aria-hidden="true"></div>
+
+        <div class="cinema-scroll-cue">
+          <span class="line"></span>
+          <span>Scroll</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FIRST DROP (short, centered intro) -->
     <section class="section-tight" aria-labelledby="featured-heading">
       <div class="container text-center">
-        <div class="reveal">
+        <div class="reveal tilt-in">
           <h2 class="display section-heading" id="featured-heading"></h2>
           <p class="lede center-lede" id="featured-supporting" style="margin-top:14px;"></p>
         </div>
       </div>
     </section>
 
-    <!-- 3. OUR STORY (compact, centered, textured) -->
+    <!-- OUR STORY (compact, centered, textured) -->
     <section class="section section-charcoal section-border-top has-grain">
-      <div class="container text-center reveal" style="max-width:760px;">
+      <div class="container text-center reveal tilt-in" style="max-width:760px;">
         <p class="eyebrow" id="story-eyebrow" style="margin-bottom:16px;"></p>
         <h2 class="display" id="story-heading" style="font-size:clamp(1.8rem,3.6vw,2.8rem);margin-bottom:20px;"></h2>
         <p class="serif-accent" id="story-body" style="font-size:1.15rem;color:var(--grey);"></p>
@@ -46,7 +87,7 @@
       </div>
     </section>
 
-    <!-- 4. PRODUCT SHOWCASE -->
+    <!-- PRODUCT SHOWCASE -->
     <section class="section section-border-top">
       <div class="container text-center">
         <p class="eyebrow reveal" style="margin-bottom:28px;">The collection</p>
@@ -62,8 +103,18 @@
   <script src="js/content.js"></script>
   <script src="js/main.js"></script>
   <script src="js/products.js"></script>
+  <script src="js/cinema.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      // Cinema opening — real brand data, no invented copy
+      document.getElementById("cinema-brand").textContent = CONTENT.brand.name;
+      document.getElementById("cinema-tagline").textContent = CONTENT.brand.tagline;
+
+      const finalProduct = CONTENT.products[CONTENT.products.length - 1];
+      document.getElementById("cinema-product-num").textContent = finalProduct.id;
+      document.getElementById("cinema-product-name").textContent = finalProduct.name;
+      document.getElementById("cinema-product-price").textContent = finalProduct.price || "";
+
       document.getElementById("featured-heading").textContent = CONTENT.featuredSection.heading;
       document.getElementById("featured-supporting").textContent = CONTENT.featuredSection.supporting;
 
