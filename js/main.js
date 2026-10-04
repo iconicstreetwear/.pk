@@ -178,7 +178,6 @@ function renderFooter() {
         <div class="footer-col">
           <h4>Connect</h4>
           <ul class="footer-icon-list">
-            <li><a href="${CONTENT.social.goodsifyco.url}" target="_blank" rel="noopener"><span class="icon-inline footer-icon-accent">${ICONS.instagram}</span>${CONTENT.social.goodsifyco.handle}</a></li>
             <li><a href="${CONTENT.social.iconicwear.url}" target="_blank" rel="noopener"><span class="icon-inline footer-icon-accent">${ICONS.instagram}</span>${CONTENT.social.iconicwear.handle}</a></li>
             <li><a href="contact.html"><span class="icon-inline footer-icon-accent">${ICONS.mail}</span>Contact us</a></li>
           </ul>

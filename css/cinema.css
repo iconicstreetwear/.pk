@@ -38,7 +38,12 @@
   transform: translate3d(0, calc(var(--ty, 0) * 1px), calc(var(--tz, 0) * 1px)) scale3d(var(--scale, 1), var(--scale, 1), 1) rotate(calc(var(--rot, 0) * 1deg));
   opacity: var(--op, 1);
   transform-style: preserve-3d;
+  /* Decorative by default — only the model scene's controls need
+     clicks, so we re-enable pointer events there specifically.
+     This avoids stacking-context z-index fights between layers. */
+  pointer-events: none;
 }
+.cinema-model-frame { pointer-events: auto; }
 
 /* ---------- Background environment (slowest layer) ---------- */
 .cinema-bg {
@@ -237,4 +242,65 @@
 
 @media (prefers-reduced-motion: reduce) {
   .tilt-in { opacity: 1; transform: none; transition: none; }
+}
+
+/* ============================================================
+   GARMENT ARROW / SWIPE CONTROL
+   Explicit interactive look-switcher on the model scene —
+   independent of scroll, click/tap or swipe driven.
+   ============================================================ */
+.garment-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 8;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(245,244,241,0.35);
+  background: rgba(14,14,15,0.4);
+  backdrop-filter: blur(6px);
+  color: var(--cinema-ink);
+  font-size: 1.4rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.garment-arrow:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--black);
+  transform: translateY(-50%) scale(1.06);
+}
+.garment-arrow--prev { left: -8px; }
+.garment-arrow--next { right: -8px; }
+
+.garment-dots {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 8;
+  display: flex;
+  gap: 8px;
+}
+.garment-dots .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(245,244,241,0.3);
+  transition: background-color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.garment-dots .dot.is-active {
+  background: var(--accent);
+  transform: scale(1.3);
+}
+
+@media (max-width: 760px) {
+  .garment-arrow { width: 38px; height: 38px; font-size: 1.2rem; }
+  .garment-arrow--prev { left: 4px; }
+  .garment-arrow--next { right: 4px; }
 }

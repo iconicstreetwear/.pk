@@ -61,7 +61,27 @@ function renderProductGrid(mountId, limit) {
     while (imgWrap.firstChild) mediaSlot.appendChild(imgWrap.firstChild);
   });
 
+  initCardTilt(mount);
   initScrollReveal();
+}
+
+// Subtle cursor-follow depth tilt on product cards — pointer devices only.
+function initCardTilt(root) {
+  if (window.matchMedia("(pointer: coarse)").matches) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  root.querySelectorAll(".product-card-media").forEach((media) => {
+    media.style.transformStyle = "preserve-3d";
+    media.addEventListener("mousemove", (e) => {
+      const r = media.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      media.style.transform = `perspective(900px) rotateY(${px * 8}deg) rotateX(${-py * 8}deg) scale3d(1.02,1.02,1.02)`;
+    });
+    media.addEventListener("mouseleave", () => {
+      media.style.transform = "perspective(900px) rotateY(0deg) rotateX(0deg) scale3d(1,1,1)";
+    });
+  });
 }
 
 /* ---------- Product detail page ---------- */

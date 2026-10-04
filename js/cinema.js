@@ -22,8 +22,53 @@ function initCinema() {
   const productLayer = wrap.querySelector(".cinema-product");
   const states = Array.from(wrap.querySelectorAll(".garment-state"));
   const cue = wrap.querySelector(".cinema-scroll-cue");
+  const frame = document.getElementById("cinema-model-frame");
+  const prevBtn = document.getElementById("garment-prev");
+  const nextBtn = document.getElementById("garment-next");
+  const dotsWrap = document.getElementById("garment-dots");
 
   let ticking = false;
+  let manualIndex = null; // null = scroll-driven; 0..states.length-1 once the visitor takes control
+
+  // Build dot indicators, one per garment state
+  if (dotsWrap) {
+    states.forEach((_, i) => {
+      const dot = document.createElement("span");
+      dot.className = "dot" + (i === 0 ? " is-active" : "");
+      dotsWrap.appendChild(dot);
+    });
+  }
+  const dots = dotsWrap ? Array.from(dotsWrap.children) : [];
+
+  function setManualLook(index) {
+    manualIndex = clampIndex(index);
+    states.forEach((el, i) => {
+      el.style.transition = "opacity 0.6s cubic-bezier(0.22,1,0.36,1)";
+      el.style.opacity = i === 0 ? "1" : (i <= manualIndex ? "1" : "0");
+    });
+    dots.forEach((d, i) => d.classList.toggle("is-active", i === manualIndex));
+  }
+  function clampIndex(i) {
+    return Math.max(0, Math.min(states.length - 1, i));
+  }
+
+  if (prevBtn) prevBtn.addEventListener("click", () => setManualLook((manualIndex ?? 0) - 1));
+  if (nextBtn) nextBtn.addEventListener("click", () => setManualLook((manualIndex ?? 0) + 1));
+  dots.forEach((d, i) => d.addEventListener("click", () => setManualLook(i)));
+
+  // Touch swipe support
+  if (frame) {
+    let touchStartX = null;
+    frame.addEventListener("touchstart", (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    frame.addEventListener("touchend", (e) => {
+      if (touchStartX === null) return;
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 40) {
+        setManualLook((manualIndex ?? 0) + (dx < 0 ? 1 : -1));
+      }
+      touchStartX = null;
+    }, { passive: true });
+  }
 
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
   function lerp(a, b, t) { return a + (b - a) * t; }
@@ -81,8 +126,9 @@ function initCinema() {
       modelLayer.style.setProperty("--op", String(Math.max(bIn - releaseOut, 0)));
     }
 
-    // Garment states cross-fade in sequence across phase B
-    if (states.length) {
+    // Garment states cross-fade in sequence across phase B — only while
+    // the visitor hasn't taken manual control via the arrows/swipe/dots.
+    if (states.length && manualIndex === null) {
       const segments = states.length; // e.g. 3 states -> 2 transition windows plus hold
       states.forEach((el, i) => {
         // state 0 is always the base photo (opacity handled by base visibility),
@@ -93,6 +139,11 @@ function initCinema() {
         const localP = seg(bIn, startAt, endAt);
         el.style.opacity = String(ease(localP));
       });
+      // keep the dot indicator roughly in sync with scroll-driven progress
+      if (dots.length) {
+        const approx = clampIndex(Math.round(bIn * (states.length - 1)));
+        dots.forEach((d, i) => d.classList.toggle("is-active", i === approx));
+      }
     }
 
     // Product beat: brief foreground surfacing near the end of the sequence

@@ -4,16 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About — ICONICWEAR</title>
-  <meta name="description" content="The story behind ICONICWEAR — a Pakistan-focused streetwear brand built from the ground up.">
+  <meta name="description" content="ICONICWEAR — a Pakistan-focused streetwear label built from the ground up.">
   <meta property="og:title" content="About — ICONICWEAR">
-  <meta property="og:description" content="The story behind ICONICWEAR — a Pakistan-focused streetwear brand built from the ground up.">
+  <meta property="og:description" content="ICONICWEAR — a Pakistan-focused streetwear label built from the ground up.">
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/images/icons/favicon-32.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Cormorant+Garamond:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -28,20 +28,27 @@
     </header>
 
     <section class="section-tight">
-      <div class="container text-center" style="max-width:760px;">
+      <div class="container text-center" style="max-width:640px;">
         <div class="prose center-lede reveal" id="about-intro"></div>
       </div>
     </section>
 
-    <section class="section section-charcoal section-border-top">
+    <section class="section-tight section-border-top">
       <div class="container">
-        <div class="section-head reveal text-center-head" style="margin-bottom:36px;">
-          <h2 class="display section-heading" id="founder-heading" style="font-size:clamp(2rem,4vw,3rem);"></h2>
+        <div class="about-visual-row reveal">
+          <div class="about-visual-frame">
+            <img src="assets/images/products/icw-01/tee-01-flatlay.jpg" alt="ICONICWEAR Signature Tee" loading="lazy">
+          </div>
+          <div class="about-visual-frame about-visual-frame--offset">
+            <img src="assets/images/products/icw-02/tracksuit-01-flatlay.jpg" alt="ICONICWEAR Signature Tracksuit" loading="lazy">
+          </div>
         </div>
-        <div class="founder-editorial reveal">
-          <div class="founder-photo" id="founder-photo"></div>
-          <div class="prose" id="founder-body"></div>
-        </div>
+      </div>
+    </section>
+
+    <section class="section-tight section-border-top">
+      <div class="container text-center">
+        <a href="collection.html" class="btn btn-primary">View the collection</a>
       </div>
     </section>
   </main>
@@ -53,22 +60,8 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const about = CONTENT.about;
-
       document.getElementById("about-heading").textContent = about.heading;
       document.getElementById("about-intro").innerHTML = about.intro.map(p => `<p>${p}</p>`).join("");
-
-      // Founder — editorial layout with real photo
-      document.getElementById("founder-heading").textContent = about.founder.heading;
-      document.getElementById("founder-body").innerHTML = about.founder.body.map(p => `<p>${p}</p>`).join("");
-
-      const founderMount = document.getElementById("founder-photo");
-      const founderImg = buildImage(about.founder.photo, "The person behind ICONICWEAR", null);
-      founderImg.querySelectorAll("img, .placeholder").forEach(el => {
-        el.style.width = "100%";
-        el.style.height = "100%";
-      });
-      while (founderImg.firstChild) founderMount.appendChild(founderImg.firstChild);
-
       initScrollReveal();
     });
   </script>

@@ -5,37 +5,44 @@
    ============================================================ */
 
 :root {
-  /* Color — deep charcoal/off-black base, not pure black */
-  --black: #131210;
-  --charcoal: #1c1a17;
-  --charcoal-2: #242220;
-  --white: #f3f1ea;
-  --grey: #a6a194;
-  --grey-dim: #5c594f;
-  --off-white: #ece9e0;
-  --off-white-text: #14130f;
-  --footer-bg: #17150f;
-  --hairline: rgba(243, 241, 234, 0.14);
-  --hairline-strong: rgba(243, 241, 234, 0.28);
+  /* Color — premium dark graphite system, one accent only */
+  --black: #0e0e0f;
+  --charcoal: #18181a;
+  --charcoal-2: #212123;
+  --surface: #2a2a2d;
+  --white: #f5f4f1;
+  --grey: #9c9b9a;
+  --grey-dim: #68676a;
+  --off-white: #eae8e3;
+  --off-white-text: #121213;
+  --footer-bg: #0b0b0c;
+  --hairline: rgba(245, 244, 241, 0.1);
+  --hairline-strong: rgba(245, 244, 241, 0.22);
 
-  /* Small, muted accent colors */
-  --accent-emerald: #4f8f6b;
-  --accent-emerald-bright: #5fa87c;
+  /* The one accent color — warm bronze/ember, reads premium against
+     graphite + the monochrome logo, used sparingly throughout */
+  --accent: #c99a5b;
+  --accent-bright: #e0b67a;
+  --accent-dim: #8a6a3e;
+  /* legacy aliases so older component rules keep working */
+  --accent-emerald: var(--accent);
+  --accent-emerald-bright: var(--accent-bright);
   --accent-red: #9a4a42;
 
-  /* Cinematic homepage — warm old-city palette (hero/scroll scenes only) */
-  --cinema-black: #16110c;
-  --cinema-shadow: rgba(20, 13, 7, 0.62);
-  --cinema-sand: #c9a877;
-  --cinema-tan: #b08b5f;
-  --cinema-dust: #7a5c3e;
-  --cinema-ink: #efe6d6;
+  /* Cinematic homepage scene — same graphite/bronze system, kept as
+     its own token set since the opening scene reads a touch darker */
+  --cinema-black: #0c0c0d;
+  --cinema-shadow: rgba(10, 10, 11, 0.64);
+  --cinema-sand: var(--accent);
+  --cinema-tan: var(--accent-dim);
+  --cinema-dust: #4a4846;
+  --cinema-ink: var(--white);
 
-  /* Type */
-  --font-display: "Anton", "Archivo Black", Impact, sans-serif;
+  /* Type — condensed streetwear display + clean contemporary body */
+  --font-display: "Bebas Neue", "Anton", Impact, sans-serif;
   --font-accent: "Bebas Neue", "Anton", sans-serif;
-  --font-serif: "Cormorant Garamond", Georgia, serif;
-  --font-body: "Manrope", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
 
   /* Layout */
   --max-width: 1440px;
@@ -105,12 +112,12 @@ body {
 
 /* ---------- Type helpers ---------- */
 .display {
-  font-family: var(--font-serif);
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-weight: 400;
   font-style: normal;
-  text-transform: none;
-  letter-spacing: 0.005em;
-  line-height: 1.04;
+  text-transform: uppercase;
+  letter-spacing: 0.015em;
+  line-height: 0.92;
 }
 
 /* Small, bold graphic accents (product numbers, logo fallback,
@@ -236,8 +243,8 @@ body {
   position: absolute;
   left: 0; bottom: 0;
   width: 0%;
-  height: 1px;
-  background: var(--white);
+  height: 1.5px;
+  background: var(--accent);
   transition: width 0.3s var(--ease);
 }
 .nav-links a:hover,
@@ -484,6 +491,8 @@ body {
   aspect-ratio: 4 / 5;
   overflow: hidden;
   background: var(--charcoal);
+  transition: transform 0.35s var(--ease);
+  will-change: transform;
 }
 
 .product-card-media img,
@@ -1443,3 +1452,26 @@ body {
 }
 .contact-form-reveal > form { overflow: hidden; min-height: 0; }
 .contact-form-reveal.is-open { grid-template-rows: 1fr; margin-top: 32px; }
+
+/* ============================================================
+   ABOUT — offset visual duo
+   ============================================================ */
+.about-visual-row {
+  display: flex;
+  justify-content: center;
+  gap: clamp(16px, 4vw, 40px);
+  flex-wrap: wrap;
+}
+.about-visual-frame {
+  width: min(320px, 42vw);
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  background: var(--charcoal);
+}
+.about-visual-frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease); }
+.about-visual-frame:hover img { transform: scale(1.04); }
+.about-visual-frame--offset { margin-top: clamp(20px, 4vw, 56px); }
+@media (max-width: 560px) {
+  .about-visual-frame { width: 44vw; }
+  .about-visual-frame--offset { margin-top: 32px; }
+}

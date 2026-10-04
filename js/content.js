@@ -90,7 +90,7 @@ const CONTENT = {
   homeStory: {
     eyebrow: "Our story",
     heading: "Streetwear made to be worn.",
-    body: "ICONICWEAR is part of a larger journey that began with GoodsifyCo and grew through years of experimenting with ecommerce, products and business. ICONICWEAR focuses on clean, wearable pieces with a streetwear identity — designed to feel distinctive without being difficult to wear.",
+    body: "ICONICWEAR is a Pakistan-focused streetwear label built from the ground up — clean, wearable pieces with a streetwear identity, designed to feel distinctive without being difficult to wear.",
     ctaLabel: "Read our story →",
     ctaHref: "about.html",
   },
@@ -186,20 +186,9 @@ const CONTENT = {
     heading: "About ICONICWEAR",
     intro: [
       "ICONICWEAR is built around a simple idea: streetwear made to be worn.",
-      "The brand is part of a larger journey that began with GoodsifyCo and grew through years of experimenting with ecommerce, products and business.",
-      "ICONICWEAR focuses on creating clean, wearable pieces with a streetwear identity — designed to feel distinctive without being difficult to wear.",
+      "A Pakistan-focused label built from the ground up — clean, wearable pieces with a streetwear identity, designed to feel distinctive without being difficult to wear.",
+      "The first drop is the beginning of that identity — a small, focused collection rather than everything at once.",
     ],
-
-    founder: {
-      heading: "The person behind ICONICWEAR",
-      photo: "assets/images/about/founder-01.jpg",
-      body: [
-        "It started small — selling items at school back in 2021. That early experience grew into a genuine interest in business that kept building over time.",
-        "The GoodsifyCo idea began in 2024, and by 2025 it had come to life. In 2026, that grew into clothing reselling and dropshipping in Canada, gaining real experience and some early success in a short period.",
-        "After moving to Saudi Arabia, work began toward a different direction — one focused on building something more original. That's where the ICONICWEAR idea took shape.",
-        "This is still early. Still learning, still building, still figuring things out one step at a time.",
-      ],
-    },
   },
 
   /* ---------------------------------------------------------
@@ -232,11 +221,6 @@ const CONTENT = {
      SOCIAL / INSTAGRAM
   --------------------------------------------------------- */
   social: {
-    goodsifyco: {
-      label: "Instagram — GoodsifyCo",
-      handle: "@goodsifyco",
-      url: "https://instagram.com/goodsifyco",
-    },
     iconicwear: {
       label: "Instagram — ICONICWEAR",
       handle: "@iconicstreetwear.pk",
@@ -389,7 +373,7 @@ const CONTENT = {
   --------------------------------------------------------- */
   footer: {
     tagline: "Streetwear made to be worn.",
-    credit: "Founded under GoodsifyCo.",
+    credit: "Independent streetwear, made to be worn.",
     copyright: "© 2026 ICONICWEAR. All rights reserved.",
   },
 };

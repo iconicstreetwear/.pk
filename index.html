@@ -14,7 +14,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Cormorant+Garamond:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/cinema.css">
@@ -43,10 +43,14 @@
         </div>
 
         <div class="cinema-layer cinema-model">
-          <div class="cinema-model-frame">
+          <div class="cinema-model-frame" id="cinema-model-frame">
             <img class="garment-state" src="assets/images/cinema/model-base.png" alt="ICONICWEAR model" loading="eager" style="opacity:1;">
             <img class="garment-state" src="assets/images/cinema/overlay-logo.png" alt="" aria-hidden="true" data-overlay="logo">
             <img class="garment-state" src="assets/images/cinema/overlay-black-tee.png" alt="" aria-hidden="true" data-overlay="black">
+
+            <button type="button" class="garment-arrow garment-arrow--prev" id="garment-prev" aria-label="Previous look">‹</button>
+            <button type="button" class="garment-arrow garment-arrow--next" id="garment-next" aria-label="Next look">›</button>
+            <div class="garment-dots" id="garment-dots" aria-hidden="true"></div>
           </div>
         </div>
 
