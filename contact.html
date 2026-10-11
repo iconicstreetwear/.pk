@@ -4,179 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact — ICONICWEAR</title>
-  <meta name="description" content="Get in touch with ICONICWEAR for questions, collaborations or general enquiries.">
+  <meta name="description" content="Reach ICONICWEAR through Instagram or email.">
   <meta property="og:title" content="Contact — ICONICWEAR">
-  <meta property="og:description" content="Get in touch with ICONICWEAR for questions, collaborations or general enquiries.">
+  <meta property="og:description" content="Reach ICONICWEAR through Instagram or email.">
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/images/icons/favicon-32.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
   <nav class="site-nav" id="site-nav"></nav>
-
   <main>
     <header class="page-header container text-center has-grain">
       <p class="eyebrow reveal is-visible" style="margin-bottom:18px;">Get in touch</p>
-      <h1 class="display reveal is-visible" id="contact-heading"></h1>
-      <p class="lede reveal is-visible center-lede" id="contact-sub" style="margin-top:20px;"></p>
+      <h1 class="display reveal is-visible"><span class="scribble">Let's talk.</span></h1>
+      
     </header>
-
-    <section class="section-tight">
-      <div class="container text-center" style="max-width:560px;">
-        <div class="contact-cta-row reveal">
-          <a href="#" id="ig-iconicwear" class="btn btn-primary" target="_blank" rel="noopener">Instagram — @iconicstreetwear.pk</a>
-          <button type="button" class="btn btn-outline" id="email-toggle">Email / Contact</button>
-        </div>
-
-        <div class="contact-form-reveal" id="contact-form-reveal">
-          <form class="contact-form" id="contact-form">
-            <div class="form-row">
-              <div class="form-field">
-                <label for="cf-name">Your name</label>
-                <input type="text" id="cf-name" name="name" required autocomplete="name">
-              </div>
-              <div class="form-field">
-                <label for="cf-email">Your email</label>
-                <input type="email" id="cf-email" name="email" required autocomplete="email">
-              </div>
-            </div>
-            <div class="form-field">
-              <label for="cf-subject">Subject / reason for contact</label>
-              <input type="text" id="cf-subject" name="subject" required>
-            </div>
-            <div class="form-field">
-              <label for="cf-message">Message</label>
-              <textarea id="cf-message" name="message" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block" id="contact-submit">Send message</button>
-            <p class="form-status" id="contact-form-status" role="status" aria-live="polite"></p>
-            <p class="form-note" id="contact-form-note"></p>
-          </form>
-        </div>
+    <section class="section-tight"><div class="container text-center" style="max-width:600px;">
+      <p class="lede center-lede reveal" id="contact-sub"></p>
+      <div class="contact-cta-row reveal" style="margin-top:34px;">
+        <a id="ig-btn" class="btn btn-primary" target="_blank" rel="noopener"></a>
+        <a id="mail-btn" class="btn btn-outline"></a>
       </div>
-    </section>
-
-    <!-- HOW YOUR ORDER REACHES YOU -->
-    <section class="section section-charcoal section-border-top">
-      <div class="container">
-        <div class="section-head reveal text-center-head">
-          <h2 class="display section-heading" id="process-heading" style="font-size:clamp(2rem,4vw,3.2rem);"></h2>
-          <p class="lede" id="process-supporting"></p>
-        </div>
-        <div class="process-grid reveal" id="process-grid"></div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section section-border-top" id="faq">
-      <div class="container" style="max-width:760px;">
-        <div class="section-head reveal text-center-head" style="margin-bottom:32px;">
-          <h2 class="display section-heading" id="faq-heading" style="font-size:clamp(2rem,4vw,3.2rem);"></h2>
-        </div>
-        <div class="faq-list reveal" id="faq-list"></div>
-      </div>
-    </section>
+      <p class="form-note reveal" style="margin-top:28px;">Ordering? Message us on Instagram with the product name and your size.</p>
+    </div></section>
   </main>
-
   <footer class="site-footer" id="site-footer"></footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="js/content.js"></script>
   <script src="js/main.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      document.getElementById("contact-heading").textContent = CONTENT.contact.heading;
-      document.getElementById("contact-sub").textContent = CONTENT.contact.supporting;
-      document.getElementById("contact-form-note").textContent = CONTENT.contact.formNote;
-
-      const igBtn = document.getElementById("ig-iconicwear");
-      igBtn.href = CONTENT.social.iconicwear.url;
-      igBtn.innerHTML = `<span class="btn-icon">${ICONS.instagram}</span> Instagram — ${CONTENT.social.iconicwear.handle}`;
-
-      // "Email / Contact" reveals the EmailJS form in place of always
-      // showing a large box up front.
-      const toggleBtn = document.getElementById("email-toggle");
-      const formReveal = document.getElementById("contact-form-reveal");
-      toggleBtn.addEventListener("click", () => {
-        const isOpen = formReveal.classList.toggle("is-open");
-        toggleBtn.setAttribute("aria-expanded", String(isOpen));
-        if (isOpen) {
-          formReveal.querySelector("#cf-name").focus();
-        }
-      });
-
-      // Order process
-      document.getElementById("process-heading").textContent = CONTENT.orderProcess.heading;
-      document.getElementById("process-supporting").textContent = CONTENT.orderProcess.supporting;
-      document.getElementById("process-grid").innerHTML = CONTENT.orderProcess.steps.map(step => `
-        <div class="process-step">
-          <span class="process-step-number">${step.step}</span>
-          <span class="process-icon">${ICONS[step.icon] || ICONS.box}</span>
-          <h3>${step.title}</h3>
-          <p>${step.body}</p>
-        </div>
-      `).join("");
-
-      // FAQ
-      document.getElementById("faq-heading").textContent = CONTENT.faq.heading;
-      renderFAQAccordion("faq-list", CONTENT.faq.items);
-
-      initScrollReveal();
-
-      // EmailJS contact form
-      if (window.emailjs) {
-        emailjs.init({ publicKey: CONTENT.emailjs.publicKey });
-      }
-
-      const form = document.getElementById("contact-form");
-      const submitBtn = document.getElementById("contact-submit");
-      const statusEl = document.getElementById("contact-form-status");
-
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        if (!window.emailjs) {
-          statusEl.textContent = "Something went wrong. Please try again.";
-          statusEl.className = "form-status is-error";
-          return;
-        }
-
-        const params = {
-          name: document.getElementById("cf-name").value,
-          email: document.getElementById("cf-email").value,
-          title: document.getElementById("cf-subject").value,
-          message: document.getElementById("cf-message").value,
-          time: new Date().toLocaleString(),
-        };
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Sending...";
-        statusEl.textContent = "";
-        statusEl.className = "form-status";
-
-        emailjs.send(CONTENT.emailjs.serviceId, CONTENT.emailjs.contactTemplateId, params)
-          .then(() => {
-            statusEl.textContent = "Message sent successfully. We'll get back to you soon.";
-            statusEl.className = "form-status is-success";
-            form.reset();
-          })
-          .catch(() => {
-            statusEl.textContent = "Something went wrong. Please try again.";
-            statusEl.className = "form-status is-error";
-          })
-          .finally(() => {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Send message";
-          });
-      });
-    });
-  </script>
+<script>document.addEventListener("DOMContentLoaded",()=>{
+  document.getElementById("contact-sub").textContent = CONTENT.contact.supporting;
+  const ig=document.getElementById("ig-btn"); ig.href=CONTENT.social.iconicwear.url; ig.innerHTML=`<span class="btn-icon">${ICONS.instagram}</span> Instagram`;
+  const m=document.getElementById("mail-btn"); m.href="mailto:"+CONTENT.contact.email; m.innerHTML=`<span class="btn-icon">${ICONS.mail}</span> Email us`;
+  initScrollReveal();});</script>
 </body>
 </html>

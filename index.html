@@ -3,132 +3,105 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ICONICWEAR — Streetwear Made to Be Worn</title>
-  <meta name="description" content="ICONICWEAR is a Pakistan-focused streetwear brand building its first signature collection.">
-  <meta property="og:title" content="ICONICWEAR — Streetwear Made to Be Worn">
-  <meta property="og:description" content="ICONICWEAR is a Pakistan-focused streetwear brand building its first signature collection.">
+  <title>ICONICWEAR — Pakistani Streetwear</title>
+  <meta name="description" content="ICONICWEAR is an independent Pakistani streetwear label creating wearable pieces with a distinct identity. Streetwear made to be worn.">
+  <meta property="og:title" content="ICONICWEAR — Pakistani Streetwear">
+  <meta property="og:description" content="ICONICWEAR is an independent Pakistani streetwear label creating wearable pieces with a distinct identity. Streetwear made to be worn.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="assets/images/banners/banner-01.jpg">
   <link rel="icon" href="assets/images/icons/favicon-32.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/cinema.css">
 </head>
-<body>
-
+<body class="has-hero">
   <nav class="site-nav" id="site-nav"></nav>
-
   <main>
-    <!-- CINEMATIC OPENING SEQUENCE
-         One pinned scroll stage: environment establishes, wordmark
-         holds and releases, the model rises and the garment
-         cross-fades through real ICONICWEAR states, then a product
-         beat surfaces before handing off into the normal page flow. -->
-    <div class="cinema-wrap" id="cinema-wrap">
-      <div class="cinema-stage">
-        <div class="cinema-layer cinema-bg">
-          <img src="assets/images/cinema/env-archway.jpg" alt="" loading="eager">
-        </div>
+    <section class="hero" id="hero" aria-label="Campaign"></section>
 
-        <div class="cinema-layer cinema-artifact" aria-hidden="true"></div>
+    <div class="marquee-strip" aria-hidden="true"><div class="marquee-track" id="marquee-track"></div></div>
 
-        <div class="cinema-layer cinema-word">
-          <h1 id="cinema-brand"></h1>
-          <p id="cinema-tagline"></p>
-        </div>
-
-        <div class="cinema-layer cinema-model">
-          <div class="cinema-model-frame" id="cinema-model-frame">
-            <img class="garment-state" src="assets/images/cinema/model-base.png" alt="ICONICWEAR model" loading="eager" style="opacity:1;">
-            <img class="garment-state" src="assets/images/cinema/overlay-logo.png" alt="" aria-hidden="true" data-overlay="logo">
-            <img class="garment-state" src="assets/images/cinema/overlay-black-tee.png" alt="" aria-hidden="true" data-overlay="black">
-
-            <button type="button" class="garment-arrow garment-arrow--prev" id="garment-prev" aria-label="Previous look">‹</button>
-            <button type="button" class="garment-arrow garment-arrow--next" id="garment-next" aria-label="Next look">›</button>
-            <div class="garment-dots" id="garment-dots" aria-hidden="true"></div>
-          </div>
-        </div>
-
-        <div class="cinema-layer cinema-product">
-          <div class="cinema-product-tag">
-            <span class="num" id="cinema-product-num"></span>
-            <span class="name" id="cinema-product-name"></span>
-            <span class="price" id="cinema-product-price"></span>
-          </div>
-        </div>
-
-        <div class="cinema-grain" aria-hidden="true"></div>
-
-        <div class="cinema-scroll-cue">
-          <span class="line"></span>
-          <span>Scroll</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- FIRST DROP (short, centered intro) -->
-    <section class="section-tight" aria-labelledby="featured-heading">
-      <div class="container text-center">
-        <div class="reveal tilt-in">
+    <section class="section" aria-labelledby="featured-heading">
+      <div class="container">
+        <div class="section-head reveal text-center-head">
           <h2 class="display section-heading" id="featured-heading"></h2>
-          <p class="lede center-lede" id="featured-supporting" style="margin-top:14px;"></p>
+          <p class="lede" id="featured-supporting"></p>
         </div>
+        <div class="product-grid" id="home-product-grid"></div>
+        <p class="text-center reveal" style="margin-top:36px;"><a href="collection.html" class="btn btn-outline">View all pieces →</a></p>
       </div>
     </section>
 
-    <!-- OUR STORY (compact, centered, textured) -->
-    <section class="section section-charcoal section-border-top has-grain">
-      <div class="container text-center reveal tilt-in" style="max-width:760px;">
+    <section class="section-tight has-grain theme-statement">
+      <div class="container text-center reveal">
+        <p class="display statement">Built different.<br><span class="scribble">Made to be worn.</span></p>
+      </div>
+    </section>
+
+    <section class="section-tight">
+      <div class="container">
+        <div class="cat-split reveal" id="cat-split"></div>
+      </div>
+    </section>
+
+    <section class="section theme-dark process-section" id="process">
+      <div class="container">
+        <div class="section-head reveal text-center-head">
+          <h2 class="display section-heading" id="process-heading"></h2>
+          <p class="lede" id="process-supporting"></p>
+        </div>
+        <div class="process-grid process-animated reveal" id="process-grid"></div>
+      </div>
+    </section>
+
+    <section class="section has-grain">
+      <div class="container text-center reveal" style="max-width:720px;">
         <p class="eyebrow" id="story-eyebrow" style="margin-bottom:16px;"></p>
-        <h2 class="display" id="story-heading" style="font-size:clamp(1.8rem,3.6vw,2.8rem);margin-bottom:20px;"></h2>
-        <p class="serif-accent" id="story-body" style="font-size:1.15rem;color:var(--grey);"></p>
+        <h2 class="display" id="story-heading" style="font-size:clamp(2.4rem,6vw,4.4rem);margin-bottom:20px;"></h2>
+        <p id="story-body" style="color:var(--grey);font-size:1.1rem;"></p>
         <a href="about.html" class="home-story-cta" id="story-cta" style="margin-top:24px;display:inline-block;"></a>
       </div>
     </section>
 
-    <!-- PRODUCT SHOWCASE -->
-    <section class="section section-border-top">
-      <div class="container text-center">
-        <p class="eyebrow reveal" style="margin-bottom:28px;">The collection</p>
+    <section class="section-tight section-border-top">
+      <div class="container soon-row reveal">
+        <a href="women.html" class="soon-tile"><span class="display">Women</span><em>Coming soon</em></a>
+        <a href="accessories.html" class="soon-tile"><span class="display">Accessories</span><em>Coming soon</em></a>
       </div>
-      <div class="container">
-        <div class="product-grid" id="home-product-grid"></div>
+    </section>
+
+    <section class="section theme-dark insta-cta">
+      <div class="container text-center reveal">
+        <p class="eyebrow" style="margin-bottom:14px;">Order directly</p>
+        <h2 class="display" style="font-size:clamp(2.6rem,8vw,6rem);margin-bottom:26px;">Find your piece.</h2>
+        <a id="insta-btn" class="btn btn-primary" target="_blank" rel="noopener"></a>
       </div>
     </section>
   </main>
-
   <footer class="site-footer" id="site-footer"></footer>
-
   <script src="js/content.js"></script>
   <script src="js/main.js"></script>
   <script src="js/products.js"></script>
-  <script src="js/cinema.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // Cinema opening — real brand data, no invented copy
-      document.getElementById("cinema-brand").textContent = CONTENT.brand.name;
-      document.getElementById("cinema-tagline").textContent = CONTENT.brand.tagline;
-
-      const finalProduct = CONTENT.products[CONTENT.products.length - 1];
-      document.getElementById("cinema-product-num").textContent = finalProduct.id;
-      document.getElementById("cinema-product-name").textContent = finalProduct.name;
-      document.getElementById("cinema-product-price").textContent = finalProduct.price || "";
-
+      const unit = CONTENT.marquee.split(" — ").filter(Boolean).map(t => `<span>${t}</span>`).join("");
+      document.getElementById("marquee-track").innerHTML = unit + unit + unit + unit;
       document.getElementById("featured-heading").textContent = CONTENT.featuredSection.heading;
       document.getElementById("featured-supporting").textContent = CONTENT.featuredSection.supporting;
-
+      document.getElementById("cat-split").innerHTML = CONTENT.categories.map((c, i) =>
+        `<a href="${c.href}" class="cat-tile${c.status === "COMING SOON" ? " is-soon" : ""}"><span class="cat-num">0${i + 1}</span><span class="display cat-name">${c.label}</span><span class="cat-note">${c.status === "COMING SOON" ? "Coming soon" : "Shop now"} →</span></a>`).join("");
+      const P = CONTENT.orderProcess;
+      document.getElementById("process-heading").textContent = P.heading;
+      document.getElementById("process-supporting").textContent = P.supporting;
+      document.getElementById("process-grid").innerHTML = P.steps.map(s => `<div class="process-step"><span class="process-step-number">${s.step}</span><span class="process-icon">${ICONS[s.icon] || ICONS.box}</span><h3>${s.title}</h3><p>${s.body}</p></div>`).join("");
       document.getElementById("story-eyebrow").textContent = CONTENT.homeStory.eyebrow;
       document.getElementById("story-heading").textContent = CONTENT.homeStory.heading;
       document.getElementById("story-body").textContent = CONTENT.homeStory.body;
-      const cta = document.getElementById("story-cta");
-      cta.textContent = CONTENT.homeStory.ctaLabel;
-      cta.href = CONTENT.homeStory.ctaHref;
-
+      const cta = document.getElementById("story-cta"); cta.textContent = CONTENT.homeStory.ctaLabel; cta.href = CONTENT.homeStory.ctaHref;
+      const ib = document.getElementById("insta-btn"); ib.href = CONTENT.social.iconicwear.url;
+      ib.innerHTML = `<span class="btn-icon">${ICONS.instagram}</span> ${CONTENT.order.label}`;
       initScrollReveal();
     });
   </script>

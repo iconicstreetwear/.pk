@@ -4,66 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About — ICONICWEAR</title>
-  <meta name="description" content="ICONICWEAR — a Pakistan-focused streetwear label built from the ground up.">
+  <meta name="description" content="ICONICWEAR is a Pakistani streetwear label built around one idea: clothing should feel like you.">
   <meta property="og:title" content="About — ICONICWEAR">
-  <meta property="og:description" content="ICONICWEAR — a Pakistan-focused streetwear label built from the ground up.">
+  <meta property="og:description" content="ICONICWEAR is a Pakistani streetwear label built around one idea: clothing should feel like you.">
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/images/icons/favicon-32.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
   <nav class="site-nav" id="site-nav"></nav>
-
   <main>
     <header class="page-header container text-center has-grain">
       <p class="eyebrow reveal is-visible" style="margin-bottom:18px;">Our story</p>
-      <h1 class="display reveal is-visible" id="about-heading"></h1>
+      <h1 class="display reveal is-visible"><span class="scribble">About ICONICWEAR</span></h1>
+      
     </header>
-
-    <section class="section-tight">
-      <div class="container text-center" style="max-width:640px;">
-        <div class="prose center-lede reveal" id="about-intro"></div>
-      </div>
-    </section>
-
-    <section class="section-tight section-border-top">
-      <div class="container">
-        <div class="about-visual-row reveal">
-          <div class="about-visual-frame">
-            <img src="assets/images/products/icw-01/tee-01-flatlay.jpg" alt="ICONICWEAR Signature Tee" loading="lazy">
-          </div>
-          <div class="about-visual-frame about-visual-frame--offset">
-            <img src="assets/images/products/icw-02/tracksuit-01-flatlay.jpg" alt="ICONICWEAR Signature Tracksuit" loading="lazy">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-tight section-border-top">
-      <div class="container text-center">
-        <a href="collection.html" class="btn btn-primary">View the collection</a>
-      </div>
-    </section>
+    <section class="section-tight"><div class="container text-center" style="max-width:640px;"><div class="prose center-lede reveal" id="about-intro"></div></div></section>
+    <section class="section-tight section-border-top theme-dark"><div class="container text-center reveal" id="about-tags"></div></section>
+    <section class="section-tight"><div class="container"><div class="about-visual-row reveal">
+      <div class="about-visual-frame"><img src="assets/images/products/icw-01/tee-01-flatlay.jpg" alt="ICONICWEAR Signature Tee" loading="lazy"></div>
+      <div class="about-visual-frame about-visual-frame--offset"><img src="assets/images/products/icw-02/tracksuit-01-flatlay.jpg" alt="ICONICWEAR Signature Tracksuit" loading="lazy"></div>
+    </div></div></section>
+    <section class="section-tight section-border-top"><div class="container text-center"><a href="collection.html" class="btn btn-primary">View the collection →</a></div></section>
   </main>
-
   <footer class="site-footer" id="site-footer"></footer>
-
   <script src="js/content.js"></script>
   <script src="js/main.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const about = CONTENT.about;
-      document.getElementById("about-heading").textContent = about.heading;
-      document.getElementById("about-intro").innerHTML = about.intro.map(p => `<p>${p}</p>`).join("");
-      initScrollReveal();
-    });
-  </script>
+<script>document.addEventListener("DOMContentLoaded",()=>{
+  document.getElementById("about-intro").innerHTML = CONTENT.about.intro.map(p=>`<p>${p}</p>`).join("");
+  document.getElementById("about-tags").innerHTML = CONTENT.about.tags.map(t=>`<p class="display" style="font-size:clamp(2rem,6vw,4.5rem);">${t}</p>`).join("");
+  initScrollReveal();});</script>
 </body>
 </html>

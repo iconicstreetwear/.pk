@@ -16,6 +16,9 @@ const ICONS = {
   box: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l9-4 9 4-9 4-9-4z"/><path d="M3 8v9l9 4 9-4V8"/><path d="M12 12v9"/></svg>`,
   truck: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="13" height="9"/><path d="M15 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>`,
   pin: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.3"/></svg>`,
+  tiktok: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3v11.5a3.5 3.5 0 11-3.5-3.5"/><path d="M14 3c.4 2.6 2 4.2 5 4.5"/></svg>`,
+  search: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>`,
+  bag: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg>`,
   route: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="18" r="2"/><path d="M5 8c0 6 14 2 14 8" stroke-dasharray="2.5 2.5"/></svg>`,
 };
 
@@ -99,47 +102,38 @@ function fillLogo(mountEl, sizeClass) {
 function renderNav() {
   const mount = document.getElementById("site-nav");
   if (!mount) return;
-
   const page = currentPage();
-
-  const links = CONTENT.nav
-    .map((item) => {
-      const isCurrent = item.href === page;
-      return `<li><a href="${item.href}"${isCurrent ? ' aria-current="page"' : ""}>${item.label}</a></li>`;
-    })
-    .join("");
+  const links = CONTENT.nav.map((item) => {
+    const isCurrent = item.href === page;
+    const soon = item.href === "women.html" ? '<em class="nav-soon">Soon</em>' : "";
+    return `<li><a href="${item.href}"${isCurrent ? ' aria-current="page"' : ""}>${item.label}${soon}</a></li>`;
+  }).join("");
 
   mount.innerHTML = `
-    <div class="container">
+    <div class="container nav-inner">
       <a href="index.html" class="nav-logo" aria-label="${CONTENT.brand.name} home"></a>
-      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav-links" id="nav-links" role="list">
-        ${links}
-      </ul>
-    </div>
-  `;
-
+      <ul class="nav-links" id="nav-links" role="list">${links}</ul>
+      <div class="nav-tools">
+        <a href="collection.html" class="nav-icon" aria-label="Browse the collection">${ICONS.search}</a>
+        <a href="${CONTENT.social.iconicwear.url}" target="_blank" rel="noopener" class="nav-icon" aria-label="Order on Instagram">${ICONS.bag}</a>
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>`;
   fillLogo(mount.querySelector(".nav-logo"));
 
   const toggle = document.getElementById("nav-toggle");
   const navLinks = document.getElementById("nav-links");
   toggle.addEventListener("click", () => {
-    const isOpen = navLinks.classList.toggle("is-open");
-    toggle.setAttribute("aria-expanded", String(isOpen));
+    const open = navLinks.classList.toggle("is-open");
+    toggle.setAttribute("aria-expanded", String(open));
   });
-  navLinks.querySelectorAll("a").forEach((a) =>
-    a.addEventListener("click", () => {
-      navLinks.classList.remove("is-open");
-      toggle.setAttribute("aria-expanded", "false");
-    })
-  );
-
-  window.addEventListener("scroll", () => {
-    mount.classList.toggle("is-scrolled", window.scrollY > 24);
-  });
-  mount.classList.toggle("is-scrolled", window.scrollY > 24);
+  navLinks.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => {
+    navLinks.classList.remove("is-open");
+    toggle.setAttribute("aria-expanded", "false");
+  }));
+  const upd = () => mount.classList.toggle("is-scrolled", window.scrollY > 24);
+  window.addEventListener("scroll", upd, { passive: true });
+  upd();
 }
 
 /* ---------- Footer ---------- */
@@ -147,49 +141,30 @@ function renderNav() {
 function renderFooter() {
   const mount = document.getElementById("site-footer");
   if (!mount) return;
-
-  const navList = CONTENT.nav
-    .map((item) => `<li><a href="${item.href}">${item.label}</a></li>`)
-    .join("");
-
+  const nav = CONTENT.footer.navLinks.map(l => `<li><a href="${l.href}">${l.label}</a></li>`).join("");
+  const pol = CONTENT.footer.policyLinks.map(l => `<li><a href="${l.href}">${l.label}</a></li>`).join("");
+  const s = CONTENT.social;
   mount.innerHTML = `
     <div class="container">
+      <div class="footer-wordmark" aria-hidden="true">ICONICWEAR</div>
       <div class="footer-top">
         <div class="footer-brand">
-          <a href="index.html" class="nav-logo" id="footer-logo" aria-label="${CONTENT.brand.name} home" style="margin-bottom:16px;"></a>
+          <a href="index.html" class="nav-logo" id="footer-logo" aria-label="${CONTENT.brand.name} home"></a>
           <p>${CONTENT.footer.tagline}</p>
+          <p class="footer-made">${CONTENT.footer.credit}</p>
         </div>
-        <div class="footer-col">
-          <h4>Explore</h4>
-          <ul>
-            ${navList}
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Information</h4>
-          <ul>
-            <li><a href="shipping.html">Shipping</a></li>
-            <li><a href="returns.html">Returns &amp; Exchanges</a></li>
-            <li><a href="contact.html#faq">FAQ</a></li>
-            <li><a href="privacy.html">Privacy Policy</a></li>
-            <li><a href="cookies.html">Cookie Policy</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Connect</h4>
+        <div class="footer-col"><h4>Navigate</h4><ul>${nav}</ul></div>
+        <div class="footer-col"><h4>Policies</h4><ul>${pol}</ul></div>
+        <div class="footer-col"><h4>Follow</h4>
           <ul class="footer-icon-list">
-            <li><a href="${CONTENT.social.iconicwear.url}" target="_blank" rel="noopener"><span class="icon-inline footer-icon-accent">${ICONS.instagram}</span>${CONTENT.social.iconicwear.handle}</a></li>
-            <li><a href="contact.html"><span class="icon-inline footer-icon-accent">${ICONS.mail}</span>Contact us</a></li>
+            <li><a href="${s.iconicwear.url}" target="_blank" rel="noopener"><span class="icon-inline footer-icon-accent">${ICONS.instagram}</span>${s.iconicwear.handle}</a></li>
+            <li><a href="${s.tiktok.url}" target="_blank" rel="noopener"><span class="icon-inline footer-icon-accent">${ICONS.tiktok}</span>${s.tiktok.handle}</a></li>
+            <li><a href="mailto:${CONTENT.contact.email}"><span class="icon-inline footer-icon-accent">${ICONS.mail}</span>${CONTENT.contact.email}</a></li>
           </ul>
         </div>
       </div>
-      <div class="footer-bottom" style="flex-direction:column;align-items:center;gap:8px;text-align:center;">
-        <span>${CONTENT.footer.credit}</span>
-        <span>${CONTENT.footer.copyright}</span>
-      </div>
-    </div>
-  `;
-
+      <div class="footer-bottom"><span>${CONTENT.footer.copyright}</span><span>Made in Pakistan</span></div>
+    </div>`;
   fillLogo(document.getElementById("footer-logo"));
 }
 
@@ -220,7 +195,8 @@ function renderHero() {
           <div class="hero-slide-content hero-slide-content--${position}${bareClass}">
             ${textHTML}
             <div class="hero-cta">
-              <a href="${CONTENT.hero.ctaHref}" class="btn btn-primary">${CONTENT.hero.ctaLabel}</a>
+              <a href="${CONTENT.hero.ctaHref}" class="btn btn-primary">${CONTENT.hero.ctaLabel} →</a>
+              <a href="${CONTENT.hero.ctaSecondaryHref}" class="btn btn-outline hero-ghost">${CONTENT.hero.ctaSecondaryLabel} →</a>
             </div>
           </div>
         </div>
@@ -235,6 +211,7 @@ function renderHero() {
   mount.innerHTML = `
     <div class="hero-slides">${slidesHTML}</div>
     ${banners.length > 1 ? `<div class="hero-indicators">${indicators}</div>` : ""}
+    <nav class="cat-strip" aria-label="Shop by category">${CONTENT.categories.map(c => `<a href="${c.href}"><span>${c.label}${c.status === "COMING SOON" ? "<small>Coming soon</small>" : ""}</span><span aria-hidden="true">→</span></a>`).join("")}</nav>
   `;
 
   // Fill each slide's media
@@ -347,7 +324,27 @@ function initCookieNotice() {
 
 /* ---------- Init ---------- */
 
+function initCursor() {
+  if (window.matchMedia("(pointer: coarse)").matches) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const dot = document.createElement("div"); dot.className = "cursor-dot";
+  const ring = document.createElement("div"); ring.className = "cursor-ring";
+  document.body.append(dot, ring);
+  document.body.classList.add("has-cursor");
+  let x = 0, y = 0, rx = 0, ry = 0;
+  window.addEventListener("mousemove", (e) => { x = e.clientX; y = e.clientY; dot.style.transform = `translate(${x}px,${y}px)`; }, { passive: true });
+  (function loop() { rx += (x - rx) * 0.18; ry += (y - ry) * 0.18; ring.style.transform = `translate(${rx}px,${ry}px)`; requestAnimationFrame(loop); })();
+  document.addEventListener("mouseover", (e) => {
+    const t = e.target.closest("a, button, .product-card-media");
+    ring.classList.toggle("is-link", !!t);
+    const isProduct = e.target.closest(".product-card-media");
+    ring.classList.toggle("is-view", !!isProduct);
+    ring.setAttribute("data-label", isProduct ? "View" : "");
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  initCursor();
   renderNav();
   renderFooter();
   renderHero();

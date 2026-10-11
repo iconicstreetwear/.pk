@@ -36,11 +36,12 @@ function productCardHTML(product) {
   `;
 }
 
-function renderProductGrid(mountId, limit) {
+function renderProductGrid(mountId, limit, filter) {
   const mount = document.getElementById(mountId);
   if (!mount) return;
 
-  const products = limit ? CONTENT.products.slice(0, limit) : CONTENT.products;
+  let products = filter ? CONTENT.products.filter(filter) : CONTENT.products;
+  if (limit) products = products.slice(0, limit);
   mount.innerHTML = products.map(productCardHTML).join("");
 
   mount.querySelectorAll(".product-card").forEach((card, i) => {
@@ -59,6 +60,13 @@ function renderProductGrid(mountId, limit) {
     });
     mediaSlot.appendChild(statusBadge);
     while (imgWrap.firstChild) mediaSlot.appendChild(imgWrap.firstChild);
+    // secondary image swap on hover (this product's own second image only)
+    if (product.images && product.images[1]) {
+      const alt = document.createElement("img");
+      alt.src = product.images[1]; alt.alt = ""; alt.loading = "lazy"; alt.className = "card-alt-img";
+      alt.onerror = () => alt.remove();
+      mediaSlot.appendChild(alt);
+    }
   });
 
   initCardTilt(mount);
@@ -144,6 +152,11 @@ function renderProductDetail() {
             <p>${CONTENT.sizeGuide.body}</p>
           </div>
 
+          <div class="product-info-links">
+            <a href="shipping.html">Shipping · ${CONTENT.shipping.charge}, ~2–5 days</a>
+            <a href="returns.html">Returns &amp; exchanges · report within 12 hours</a>
+          </div>
+
           <div class="product-actions">
             <a href="${CONTENT.social.iconicwear.url}" target="_blank" rel="noopener" class="btn btn-primary btn-block">
               <span class="btn-icon">${ICONS.instagram}</span> ${CONTENT.order.label}
@@ -187,6 +200,11 @@ function renderProductDetail() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("[data-products]").forEach((el) => {
+    const key = el.dataset.products;
+    const filter = key === "all" || key === "men" ? null : (p) => p.section === key;
+    renderProductGrid(el.id, 0, filter);
+  });
   renderProductGrid("home-product-grid", 2);
   renderProductGrid("collection-product-grid");
   renderProductDetail();

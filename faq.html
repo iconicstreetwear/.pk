@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cookie Policy — ICONICWEAR</title>
-  <meta name="description" content="Cookie Policy for ICONICWEAR.">
-  <meta property="og:title" content="Cookie Policy — ICONICWEAR">
-  <meta property="og:description" content="Cookie Policy for ICONICWEAR.">
+  <title>FAQ — ICONICWEAR</title>
+  <meta name="description" content="Answers about ordering, delivery, returns and more.">
+  <meta property="og:title" content="FAQ — ICONICWEAR">
+  <meta property="og:description" content="Answers about ordering, delivery, returns and more.">
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/images/icons/favicon-32.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
@@ -19,17 +19,15 @@
   <nav class="site-nav" id="site-nav"></nav>
   <main>
     <header class="page-header container text-center has-grain">
-      <p class="eyebrow reveal is-visible" style="margin-bottom:18px;">Legal</p>
-      <h1 class="display reveal is-visible"><span class="scribble">Cookie Policy</span></h1>
+      <p class="eyebrow reveal is-visible" style="margin-bottom:18px;">Help</p>
+      <h1 class="display reveal is-visible"><span class="scribble">FAQ</span></h1>
       
     </header>
-    <section class="section-tight"><div class="container" style="max-width:760px;"><p class="lede reveal" id="pi" style="margin-bottom:28px;"></p><div class="policy-list" id="pl"></div></div></section>
+    <section class="section-tight"><div class="container" style="max-width:760px;"><div class="faq-list" id="faq-list"></div></div></section>
   </main>
   <footer class="site-footer" id="site-footer"></footer>
   <script src="js/content.js"></script>
   <script src="js/main.js"></script>
-<script>document.addEventListener("DOMContentLoaded",()=>{
-  const d=CONTENT.cookies; document.getElementById("pi").textContent=d.intro;
-  document.getElementById("pl").innerHTML=d.sections.map(s=>`<div class="policy-item"><h3>${s.title}</h3><p>${s.body}</p></div>`).join("");});</script>
+<script>document.addEventListener("DOMContentLoaded",()=>{renderFAQAccordion("faq-list",CONTENT.faq.items);});</script>
 </body>
 </html>
