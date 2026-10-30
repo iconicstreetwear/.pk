@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NQ1DWGSQ0M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-NQ1DWGSQ0M');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shipping — ICONICWEAR</title>
@@ -16,22 +25,21 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <nav class="site-nav" id="site-nav"></nav>
+  <nav class="site-nav" id="site-nav" aria-label="Main"></nav>
   <main>
-    <header class="page-header container text-center has-grain">
-      <p class="eyebrow reveal is-visible" style="margin-bottom:18px;">Policy</p>
-      <h1 class="display reveal is-visible"><span class="scribble">Shipping</span></h1>
+    <header class="page-head container reveal is-visible">
+      <p class="eyebrow">Policy</p>
+      <h1 class="display">Shipping</h1>
       
     </header>
-    <section class="section-tight"><div class="container" style="max-width:680px;"><div class="policy-box reveal"><div class="policy-highlight"><span class="eyebrow">Delivery fee</span><span class="display policy-highlight-value" id="hl"></span></div><p class="lede" id="intro" style="margin-bottom:22px;"></p><ul class="policy-bullets" id="pts"></ul></div></div></section>
+    <section class="section-tight"><div class="container"><div class="policy-box reveal"><div class="policy-hl"><span class="eyebrow">Delivery fee</span><span class="display" id="hl"></span></div><p class="lede" id="intro" style="margin-bottom:22px"></p><ul class="bullets" id="pts"></ul></div></div></section>
   </main>
   <footer class="site-footer" id="site-footer"></footer>
   <script src="js/content.js"></script>
   <script src="js/main.js"></script>
-<script>document.addEventListener("DOMContentLoaded",()=>{
-  const d=CONTENT.shipping; document.getElementById("intro").textContent=d.intro;
-  document.getElementById("pts").innerHTML=d.points.map(p=>`<li>${p}</li>`).join("");
-  document.getElementById("hl").textContent=d.charge;
-  initScrollReveal();});</script>
+  <script>document.addEventListener("DOMContentLoaded",()=>{
+    const d=CONTENT.shipping; document.getElementById("intro").textContent=d.intro;
+    document.getElementById("pts").innerHTML=d.points.map(p=>`<li>${esc(p)}</li>`).join("");
+    document.getElementById("hl").textContent=d.charge; initScrollReveal();});</script>
 </body>
 </html>

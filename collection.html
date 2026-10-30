@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NQ1DWGSQ0M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-NQ1DWGSQ0M');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Collection — ICONICWEAR</title>
+  <title>Our Collection — ICONICWEAR</title>
   <meta name="description" content="Browse the ICONICWEAR collection.">
-  <meta property="og:title" content="Collection — ICONICWEAR">
+  <meta property="og:title" content="Our Collection — ICONICWEAR">
   <meta property="og:description" content="Browse the ICONICWEAR collection.">
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/images/icons/favicon-32.png" type="image/png">
@@ -16,22 +25,18 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <nav class="site-nav" id="site-nav"></nav>
+  <nav class="site-nav" id="site-nav" aria-label="Main"></nav>
   <main>
-    <header class="page-header container text-center has-grain">
-      <p class="eyebrow reveal is-visible" style="margin-bottom:18px;">The collection</p>
-      <h1 class="display reveal is-visible"><span class="scribble">The first drop</span></h1>
-      <p class="lede reveal is-visible center-lede" style="margin-top:20px;">Two signature pieces. One beginning.</p>
+    <header class="page-head container reveal is-visible">
+      <p class="eyebrow">Our Collection</p>
+      <h1 class="display">Shop</h1>
+      <p class="lede">Every piece in the current drop.</p>
     </header>
-    <section class="section-tight"><div class="container">
-      <div class="chip-row"><a class="chip is-active" href="collection.html">All</a><a class="chip" href="tops.html">Tops</a><a class="chip" href="bottoms.html">Bottoms</a><a class="chip" href="accessories.html">Accessories · Soon</a></div>
-      <div class="product-grid" id="grid-all" data-products="all"></div>
-    </div></section>
+    <section class="section-tight"><div class="container"><div class="chips"><a class="chip" href="collection.html" aria-current="page">All</a><a class="chip" href="tops.html">Tops</a><a class="chip" href="bottoms.html">Bottoms</a><a class="chip" href="cult.html">Cult · Soon</a></div><div class="grid" id="all-grid"></div></div></section>
   </main>
   <footer class="site-footer" id="site-footer"></footer>
   <script src="js/content.js"></script>
   <script src="js/main.js"></script>
   <script src="js/products.js"></script>
-<script>document.addEventListener("DOMContentLoaded",()=>initScrollReveal());</script>
 </body>
 </html>

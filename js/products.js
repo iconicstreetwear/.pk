@@ -1,211 +1,135 @@
-/* ============================================================
-   ICONICWEAR — PRODUCTS.JS
-   Renders the product grid (Home + Collection pages) and the
-   individual product detail page, all driven by CONTENT.products
-   in content.js. Add a new product there and it appears here
-   automatically — no changes needed in this file.
+/* ICONICWEAR — product grids, category pages and product detail.
+   Driven entirely by CONTENT.products / CONTENT.categories. */
 
-   Each product's "images" array is its own, dedicated gallery —
-   this file never mixes images between products.
-   ============================================================ */
+const normSizes = (p) => (p.sizes || []).map((s) => typeof s === "string" ? { size: s, status: "AVAILABLE" } : s);
+const priceText = (p) => p.price ? esc(p.price) : '<span class="muted">Price on request</span>';
+const instaUrl = () => CONTENT.social.iconicwear.url;
 
-function priceHTML(product) {
-  return product.price
-    ? product.price
-    : `<span class="tbc">Price — to be confirmed</span>`;
+function productStatus(p) {
+  const sizes = normSizes(p);
+  if (sizes.length && sizes.every((s) => s.status === "SOLD OUT")) return "SOLD OUT";
+  return p.status || "AVAILABLE";
 }
 
-function productCardHTML(product) {
-  return `
-    <article class="product-card reveal">
-      <a href="product.html?id=${encodeURIComponent(product.id)}" class="product-card-media" data-media></a>
-      <div class="product-card-body">
-        <p class="product-number">${product.id}</p>
-        <h3 class="product-name">${product.name}</h3>
-        <p class="product-category">${product.category}</p>
-        <div class="product-card-meta">
-          <span class="product-card-price">${priceHTML(product)}</span>
-        </div>
-        <p class="product-card-desc">${product.shortDescription}</p>
-        <div class="product-card-actions">
-          <a href="product.html?id=${encodeURIComponent(product.id)}" class="btn btn-outline">View piece</a>
-          <a href="${CONTENT.social.iconicwear.url}" target="_blank" rel="noopener" class="btn btn-primary">${CONTENT.order.label}</a>
-        </div>
-      </div>
-    </article>
-  `;
+function cardHTML(p) {
+  const url = `product.html?id=${encodeURIComponent(p.id)}`;
+  const status = productStatus(p);
+  const sizes = normSizes(p).map((s) => s.status === "SOLD OUT" ? `<s title="Sold out">${esc(s.size)}</s>` : `<span>${esc(s.size)}</span>`).join("");
+  return `<article class="card reveal">
+    <a class="card-media" href="${url}" aria-label="${esc(p.name)}" data-media></a>
+    <div class="card-info">
+      <p class="card-code">${esc(p.id)}</p>
+      <h3 class="card-name"><a href="${url}">${esc(p.name)}</a></h3>
+      <p class="card-price">${priceText(p)}</p>
+      <p class="card-sizes">${sizes}</p>
+    </div></article>`;
 }
 
-function renderProductGrid(mountId, limit, filter) {
-  const mount = document.getElementById(mountId);
-  if (!mount) return;
-
-  let products = filter ? CONTENT.products.filter(filter) : CONTENT.products;
-  if (limit) products = products.slice(0, limit);
-  mount.innerHTML = products.map(productCardHTML).join("");
-
-  mount.querySelectorAll(".product-card").forEach((card, i) => {
-    const product = products[i];
-    const mediaSlot = card.querySelector("[data-media]");
-    const statusBadge = document.createElement("span");
-    statusBadge.className = "product-status";
-    statusBadge.dataset.status = product.status;
-    statusBadge.textContent = product.status;
-
-    // This product's own image ONLY — never another product's.
-    const imgWrap = buildImage(product.images && product.images[0], product.name, null);
-    imgWrap.querySelectorAll("img, .placeholder").forEach((el) => {
-      el.style.width = "100%";
-      el.style.height = "100%";
-    });
-    mediaSlot.appendChild(statusBadge);
-    while (imgWrap.firstChild) mediaSlot.appendChild(imgWrap.firstChild);
-    // secondary image swap on hover (this product's own second image only)
-    if (product.images && product.images[1]) {
-      const alt = document.createElement("img");
-      alt.src = product.images[1]; alt.alt = ""; alt.loading = "lazy"; alt.className = "card-alt-img";
-      alt.onerror = () => alt.remove();
-      mediaSlot.appendChild(alt);
+function renderGrid(mount, list) {
+  mount.innerHTML = list.map(cardHTML).join("");
+  mount.querySelectorAll(".card").forEach((card, i) => {
+    const p = list[i];
+    const slot = card.querySelector("[data-media]");
+    slot.appendChild(buildImage(p.images && p.images[0], p.name));
+    const st = productStatus(p);
+    if (st !== "AVAILABLE") { const b = document.createElement("span"); b.className = "badge"; b.textContent = st; slot.appendChild(b); }
+    if (p.images && p.images[1]) { // this product's own second image only
+      const a = document.createElement("img"); a.src = p.images[1]; a.alt = ""; a.loading = "lazy"; a.className = "card-alt"; a.onerror = () => a.remove(); slot.appendChild(a);
     }
   });
-
-  initCardTilt(mount);
   initScrollReveal();
 }
 
-// Subtle cursor-follow depth tilt on product cards — pointer devices only.
-function initCardTilt(root) {
-  if (window.matchMedia("(pointer: coarse)").matches) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+/* Homepage "New in" and any [data-products] grid */
+function initGrids() {
+  const home = document.getElementById("home-grid");
+  if (home) renderGrid(home, CONTENT.products);
 
-  root.querySelectorAll(".product-card-media").forEach((media) => {
-    media.style.transformStyle = "preserve-3d";
-    media.addEventListener("mousemove", (e) => {
-      const r = media.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width - 0.5;
-      const py = (e.clientY - r.top) / r.height - 0.5;
-      media.style.transform = `perspective(900px) rotateY(${px * 8}deg) rotateX(${-py * 8}deg) scale3d(1.02,1.02,1.02)`;
-    });
-    media.addEventListener("mouseleave", () => {
-      media.style.transform = "perspective(900px) rotateY(0deg) rotateX(0deg) scale3d(1,1,1)";
-    });
-  });
+  const cat = document.getElementById("category-grid");
+  if (cat) {
+    const key = cat.dataset.category;
+    const list = CONTENT.products.filter((p) => p.section === key);
+    if (list.length) renderGrid(cat, list);
+    else {
+      const msg = (CONTENT.categories[key] || {}).empty || "New pieces are on the way.";
+      cat.outerHTML = `<div class="empty-state reveal is-visible"><p class="display">Coming soon</p><p>${esc(msg)}</p><a class="btn btn-outline" href="${instaUrl()}" target="_blank" rel="noopener">Follow on Instagram →</a></div>`;
+    }
+  }
+  const all = document.getElementById("all-grid");
+  if (all) renderGrid(all, CONTENT.products);
 }
 
-/* ---------- Product detail page ---------- */
-
-function getProductFromURL() {
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
-  if (!id) return CONTENT.products[0];
-  return CONTENT.products.find((p) => p.id === id) || CONTENT.products[0];
+/* ---------------- Product detail ---------------- */
+function getProduct() {
+  const id = new URLSearchParams(window.location.search).get("id");
+  return CONTENT.products.find((p) => p.id === id) || null;
 }
 
 function renderProductDetail() {
   const mount = document.getElementById("product-detail");
   if (!mount) return;
-
-  const product = getProductFromURL();
-  if (!product) {
-    mount.innerHTML = `<div class="container section"><p>Product not found.</p></div>`;
+  const p = getProduct();
+  if (!p) {
+    mount.innerHTML = `<div class="container text-center"><h1 class="display">Product not found</h1><p style="margin:16px 0 28px">That piece isn't available.</p><a class="btn btn-primary" href="collection.html">Back to collection</a></div>`;
     return;
   }
-
-  document.title = `${product.name} — ${CONTENT.brand.name}`;
-  const metaDesc = document.querySelector('meta[name="description"]');
-  if (metaDesc) metaDesc.setAttribute("content", product.shortDescription);
-
-  const sizesHTML = (product.sizes || [])
-    .map((s) => `<span class="size-chip">${s}</span>`)
-    .join("");
-
-  const thumbsHTML = (product.images || [])
-    .map((src, i) => `<button data-index="${i}" class="${i === 0 ? "is-active" : ""}" aria-label="View image ${i + 1}"></button>`)
-    .join("");
+  document.title = `${p.name} — ICONICWEAR`;
+  const sizes = normSizes(p);
+  const rows = [["Colour", p.color], ["Fit", p.fit], ["Style", p.style], ["Material", p.material], ["Made in", p.origin && p.origin.replace(/^Made in\s*/i, "")]]
+    .filter((r) => r[1]).map((r) => `<div class="spec-row"><dt>${r[0]}</dt><dd>${esc(r[1])}</dd></div>`).join("");
+  const sizeBtns = sizes.map((s) => {
+    const sold = s.status === "SOLD OUT";
+    return `<button type="button" class="size-btn${sold ? " is-sold" : ""}" data-size="${esc(s.size)}" ${sold ? 'disabled aria-disabled="true"' : ""} aria-pressed="false">${esc(s.size)}${sold ? '<small>Sold out</small>' : ""}</button>`;
+  }).join("");
+  const status = productStatus(p);
 
   mount.innerHTML = `
     <div class="container">
-      <p class="reveal" style="margin-bottom:28px;"><a href="collection.html" class="btn btn-outline" style="padding:12px 22px;">&larr; Back to collection</a></p>
-      <div class="product-detail-layout">
-        <div class="product-gallery reveal">
-          <div class="product-gallery-main" id="gallery-main"></div>
-          <div class="product-gallery-thumbs" id="gallery-thumbs">${thumbsHTML}</div>
+      <p class="crumbs"><a href="collection.html">← Back to collection</a></p>
+      <div class="pd-layout">
+        <div class="pd-gallery">
+          <div class="pd-main" id="pd-main"></div>
+          <div class="pd-thumbs" id="pd-thumbs"></div>
         </div>
-        <div class="product-info-panel reveal">
-          <p class="product-info-number">${product.id} — ${product.category}</p>
-          <h1 class="display product-info-name">${product.name}</h1>
-          <span class="status-inline" data-status="${product.status}" style="margin-bottom:20px;display:inline-block;">${product.status}</span>
-          <p class="product-info-price">${priceHTML(product)}</p>
-          <p class="product-info-desc">${product.description}</p>
-
-          <dl class="spec-table">
-            <div class="spec-row"><dt>Color</dt><dd>${product.color}</dd></div>
-            <div class="spec-row"><dt>Material</dt><dd>${product.material}</dd></div>
-            <div class="spec-row"><dt>Fit</dt><dd>${product.fit}</dd></div>
-          </dl>
-
-          <p class="eyebrow" style="margin-bottom:12px;">Available sizes</p>
-          <div class="size-list">${sizesHTML}</div>
-
-          <div class="size-guide-box">
-            <h3>${CONTENT.sizeGuide.heading}</h3>
-            <p>${CONTENT.sizeGuide.body}</p>
-          </div>
-
-          <div class="product-info-links">
-            <a href="shipping.html">Shipping · ${CONTENT.shipping.charge}, ~2–5 days</a>
-            <a href="returns.html">Returns &amp; exchanges · report within 12 hours</a>
-          </div>
-
-          <div class="product-actions">
-            <a href="${CONTENT.social.iconicwear.url}" target="_blank" rel="noopener" class="btn btn-primary btn-block">
-              <span class="btn-icon">${ICONS.instagram}</span> ${CONTENT.order.label}
-            </a>
-            <p class="form-note" style="text-align:center;">${CONTENT.order.destinationLabel}</p>
-          </div>
+        <div class="pd-info">
+          <p class="eyebrow">${esc(p.id)} — ${esc(p.category)}</p>
+          <h1 class="display pd-title">${esc(p.name)}</h1>
+          <p class="pd-price">${priceText(p)}</p>
+          ${status !== "AVAILABLE" ? `<p class="pd-status">${esc(status)}</p>` : ""}
+          <p class="pd-desc">${esc(p.description)}</p>
+          <dl class="spec-table">${rows}</dl>
+          ${sizes.length ? `<div class="pd-sizes"><p class="eyebrow">Size</p><div class="size-list" id="size-list" role="group" aria-label="Select a size">${sizeBtns}</div><p class="size-note">${esc(CONTENT.sizeNote)}</p></div>` : ""}
+          <p class="order-line" id="order-line" role="status" aria-live="polite">${sizes.length ? "Select a size to order." : ""}</p>
+          <a class="btn btn-primary btn-block order-btn${sizes.length ? " is-disabled" : ""}" id="order-btn" href="${instaUrl()}" target="_blank" rel="noopener" ${sizes.length ? 'aria-disabled="true" tabindex="-1"' : ""}>${esc(CONTENT.order.label)}</a>
+          <ul class="pd-links"><li><a href="shipping.html">Shipping · ${esc(CONTENT.shipping.charge)}, around 2–5 days</a></li><li><a href="returns.html">Returns &amp; exchanges · report within 12 hours</a></li></ul>
         </div>
       </div>
-    </div>
-  `;
+    </div>`;
 
-  const images = product.images || [];
-  const mainSlot = document.getElementById("gallery-main");
-  const thumbButtons = document.querySelectorAll("#gallery-thumbs button");
-
-  function showImage(index) {
-    mainSlot.innerHTML = "";
-    const imgWrap = buildImage(images[index], `${product.name} — image ${index + 1}`, null);
-    imgWrap.querySelectorAll("img, .placeholder").forEach((el) => {
-      el.style.width = "100%";
-      el.style.height = "100%";
-    });
-    while (imgWrap.firstChild) mainSlot.appendChild(imgWrap.firstChild);
-
-    thumbButtons.forEach((b) => b.classList.remove("is-active"));
-    if (thumbButtons[index]) thumbButtons[index].classList.add("is-active");
-  }
-
-  thumbButtons.forEach((btn, i) => {
-    const imgWrap = buildImage(images[i], `${product.name} thumbnail ${i + 1}`, null);
-    imgWrap.querySelectorAll("img, .placeholder").forEach((el) => {
-      el.style.width = "100%";
-      el.style.height = "100%";
-    });
-    while (imgWrap.firstChild) btn.appendChild(imgWrap.firstChild);
-    btn.addEventListener("click", () => showImage(i));
+  // gallery
+  const main = document.getElementById("pd-main"), thumbs = document.getElementById("pd-thumbs");
+  const imgs = p.images || [];
+  const show = (i) => {
+    main.innerHTML = ""; main.appendChild(buildImage(imgs[i], `${p.name} — image ${i + 1}`));
+    thumbs.querySelectorAll("button").forEach((b, j) => b.classList.toggle("is-active", j === i));
+  };
+  if (imgs.length > 1) imgs.forEach((src, i) => {
+    const b = document.createElement("button"); b.type = "button"; b.setAttribute("aria-label", `View image ${i + 1}`);
+    b.appendChild(buildImage(src, `${p.name} thumbnail ${i + 1}`)); b.addEventListener("click", () => show(i)); thumbs.appendChild(b);
   });
+  show(0);
 
-  showImage(0);
-  initScrollReveal();
+  // size selection — sold-out sizes can never be chosen
+  const btn = document.getElementById("order-btn"), line = document.getElementById("order-line");
+  let chosen = null;
+  btn.addEventListener("click", (e) => { if (btn.classList.contains("is-disabled")) e.preventDefault(); });
+  document.querySelectorAll(".size-btn:not(.is-sold)").forEach((b) => b.addEventListener("click", () => {
+    chosen = b.dataset.size;
+    document.querySelectorAll(".size-btn").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    b.parentElement.querySelectorAll(".size-btn").forEach((x) => x.classList.toggle("is-selected", x === b));
+    btn.classList.remove("is-disabled"); btn.removeAttribute("aria-disabled"); btn.removeAttribute("tabindex");
+    line.innerHTML = `Message <strong>${esc(CONTENT.social.iconicwear.handle)}</strong> with <strong>${esc(p.id)} · ${esc(chosen)}</strong>.`;
+  }));
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll("[data-products]").forEach((el) => {
-    const key = el.dataset.products;
-    const filter = key === "all" || key === "men" ? null : (p) => p.section === key;
-    renderProductGrid(el.id, 0, filter);
-  });
-  renderProductGrid("home-product-grid", 2);
-  renderProductGrid("collection-product-grid");
-  renderProductDetail();
-});
+document.addEventListener("DOMContentLoaded", () => { initGrids(); renderProductDetail(); });

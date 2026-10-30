@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NQ1DWGSQ0M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-NQ1DWGSQ0M');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cookie Policy — ICONICWEAR</title>
@@ -16,20 +25,20 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <nav class="site-nav" id="site-nav"></nav>
+  <nav class="site-nav" id="site-nav" aria-label="Main"></nav>
   <main>
-    <header class="page-header container text-center has-grain">
-      <p class="eyebrow reveal is-visible" style="margin-bottom:18px;">Legal</p>
-      <h1 class="display reveal is-visible"><span class="scribble">Cookie Policy</span></h1>
+    <header class="page-head container reveal is-visible">
+      <p class="eyebrow">Legal</p>
+      <h1 class="display">Cookie Policy</h1>
       
     </header>
-    <section class="section-tight"><div class="container" style="max-width:760px;"><p class="lede reveal" id="pi" style="margin-bottom:28px;"></p><div class="policy-list" id="pl"></div></div></section>
+    <section class="section-tight"><div class="container"><p class="lede center" id="pi" style="margin-bottom:28px"></p><div class="policy-list" id="pl"></div></div></section>
   </main>
   <footer class="site-footer" id="site-footer"></footer>
   <script src="js/content.js"></script>
   <script src="js/main.js"></script>
-<script>document.addEventListener("DOMContentLoaded",()=>{
-  const d=CONTENT.cookies; document.getElementById("pi").textContent=d.intro;
-  document.getElementById("pl").innerHTML=d.sections.map(s=>`<div class="policy-item"><h3>${s.title}</h3><p>${s.body}</p></div>`).join("");});</script>
+  <script>document.addEventListener("DOMContentLoaded",()=>{
+    const d=CONTENT.cookies; document.getElementById("pi").textContent=d.intro;
+    document.getElementById("pl").innerHTML=d.sections.map(s=>`<div class="policy-item"><h3>${esc(s.title)}</h3><p>${esc(s.body)}</p></div>`).join("");});</script>
 </body>
 </html>

@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NQ1DWGSQ0M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-NQ1DWGSQ0M');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bottoms — ICONICWEAR</title>
-  <meta name="description" content="Tracksuits and bottoms from ICONICWEAR.">
+  <meta name="description" content="Bottoms from ICONICWEAR.">
   <meta property="og:title" content="Bottoms — ICONICWEAR">
-  <meta property="og:description" content="Tracksuits and bottoms from ICONICWEAR.">
+  <meta property="og:description" content="Bottoms from ICONICWEAR.">
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/images/icons/favicon-32.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
@@ -16,22 +25,18 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <nav class="site-nav" id="site-nav"></nav>
+  <nav class="site-nav" id="site-nav" aria-label="Main"></nav>
   <main>
-    <header class="page-header container text-center has-grain">
-      <p class="eyebrow reveal is-visible" style="margin-bottom:18px;">Men / Bottoms</p>
-      <h1 class="display reveal is-visible"><span class="scribble">Bottoms</span></h1>
+    <header class="page-head container reveal is-visible">
+      <p class="eyebrow">Our Collection</p>
+      <h1 class="display">Bottoms</h1>
       
     </header>
-    <section class="section-tight"><div class="container">
-      <div class="chip-row"><a class="chip" href="men.html">All</a><a class="chip" href="tops.html">Tops</a><a class="chip is-active" href="bottoms.html">Bottoms</a><a class="chip" href="accessories.html">Accessories · Soon</a></div>
-      <div class="product-grid" id="grid-bottoms" data-products="bottoms"></div>
-    </div></section>
+    <section class="section-tight"><div class="container"><div class="chips"><a class="chip" href="collection.html">All</a><a class="chip" href="tops.html">Tops</a><a class="chip" href="bottoms.html" aria-current="page">Bottoms</a><a class="chip" href="cult.html">Cult · Soon</a></div><div class="grid" id="category-grid" data-category="bottoms"></div></div></section>
   </main>
   <footer class="site-footer" id="site-footer"></footer>
   <script src="js/content.js"></script>
   <script src="js/main.js"></script>
   <script src="js/products.js"></script>
-<script>document.addEventListener("DOMContentLoaded",()=>initScrollReveal());</script>
 </body>
 </html>

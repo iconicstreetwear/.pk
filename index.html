@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NQ1DWGSQ0M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-NQ1DWGSQ0M');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ICONICWEAR — Pakistani Streetwear</title>
+  <meta name="google-site-verification" content="djT3wBQrOY9fu2YEfSx8mSghTGgQpPYlqpG3QE-1Cv4" />
+  <title>ICONICWEAR — Streetwear Made to Be Worn</title>
   <meta name="description" content="ICONICWEAR is an independent Pakistani streetwear label creating wearable pieces with a distinct identity. Streetwear made to be worn.">
-  <meta property="og:title" content="ICONICWEAR — Pakistani Streetwear">
+  <meta property="og:title" content="ICONICWEAR — Streetwear Made to Be Worn">
   <meta property="og:description" content="ICONICWEAR is an independent Pakistani streetwear label creating wearable pieces with a distinct identity. Streetwear made to be worn.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="assets/images/banners/banner-01.jpg">
+  <meta property="og:image" content="assets/images/campaign/campaign-02-sidequest.jpg">
   <link rel="icon" href="assets/images/icons/favicon-32.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,67 +26,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="has-hero">
-  <nav class="site-nav" id="site-nav"></nav>
+<body>
+  <nav class="site-nav" id="site-nav" aria-label="Main"></nav>
   <main>
-    <section class="hero" id="hero" aria-label="Campaign"></section>
-
-    <div class="marquee-strip" aria-hidden="true"><div class="marquee-track" id="marquee-track"></div></div>
-
-    <section class="section" aria-labelledby="featured-heading">
+    <div id="strips" class="strips"></div>
+    <section class="brand-head container">
+      <h1 class="display grad">ICONICWEAR</h1>
+      <p id="brand-tag"></p>
+    </section>
+    <div id="campaigns"></div>
+    <section class="section rule" aria-labelledby="newin">
       <div class="container">
-        <div class="section-head reveal text-center-head">
-          <h2 class="display section-heading" id="featured-heading"></h2>
-          <p class="lede" id="featured-supporting"></p>
-        </div>
-        <div class="product-grid" id="home-product-grid"></div>
-        <p class="text-center reveal" style="margin-top:36px;"><a href="collection.html" class="btn btn-outline">View all pieces →</a></p>
+        <div class="sec-head"><h2 class="display" id="newin"></h2><p class="lede" id="newin-sub"></p></div>
+        <div class="grid" id="home-grid"></div>
+        <p class="text-center" style="margin-top:36px"><a class="btn btn-outline" href="collection.html">View all →</a></p>
       </div>
     </section>
-
-    <section class="section-tight has-grain theme-statement">
-      <div class="container text-center reveal">
-        <p class="display statement">Built different.<br><span class="scribble">Made to be worn.</span></p>
-      </div>
-    </section>
-
-    <section class="section-tight">
+    <section class="section rule" id="process">
       <div class="container">
-        <div class="cat-split reveal" id="cat-split"></div>
-      </div>
-    </section>
-
-    <section class="section theme-dark process-section" id="process">
-      <div class="container">
-        <div class="section-head reveal text-center-head">
-          <h2 class="display section-heading" id="process-heading"></h2>
-          <p class="lede" id="process-supporting"></p>
-        </div>
-        <div class="process-grid process-animated reveal" id="process-grid"></div>
-      </div>
-    </section>
-
-    <section class="section has-grain">
-      <div class="container text-center reveal" style="max-width:720px;">
-        <p class="eyebrow" id="story-eyebrow" style="margin-bottom:16px;"></p>
-        <h2 class="display" id="story-heading" style="font-size:clamp(2.4rem,6vw,4.4rem);margin-bottom:20px;"></h2>
-        <p id="story-body" style="color:var(--grey);font-size:1.1rem;"></p>
-        <a href="about.html" class="home-story-cta" id="story-cta" style="margin-top:24px;display:inline-block;"></a>
-      </div>
-    </section>
-
-    <section class="section-tight section-border-top">
-      <div class="container soon-row reveal">
-        <a href="women.html" class="soon-tile"><span class="display">Women</span><em>Coming soon</em></a>
-        <a href="accessories.html" class="soon-tile"><span class="display">Accessories</span><em>Coming soon</em></a>
-      </div>
-    </section>
-
-    <section class="section theme-dark insta-cta">
-      <div class="container text-center reveal">
-        <p class="eyebrow" style="margin-bottom:14px;">Order directly</p>
-        <h2 class="display" style="font-size:clamp(2.6rem,8vw,6rem);margin-bottom:26px;">Find your piece.</h2>
-        <a id="insta-btn" class="btn btn-primary" target="_blank" rel="noopener"></a>
+        <div class="sec-head"><h2 class="display" id="process-h"></h2><p class="lede" id="process-s"></p></div>
+        <div class="process" id="process-grid"></div>
       </div>
     </section>
   </main>
@@ -86,22 +55,23 @@
   <script src="js/products.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const unit = CONTENT.marquee.split(" — ").filter(Boolean).map(t => `<span>${t}</span>`).join("");
-      document.getElementById("marquee-track").innerHTML = unit + unit + unit + unit;
-      document.getElementById("featured-heading").textContent = CONTENT.featuredSection.heading;
-      document.getElementById("featured-supporting").textContent = CONTENT.featuredSection.supporting;
-      document.getElementById("cat-split").innerHTML = CONTENT.categories.map((c, i) =>
-        `<a href="${c.href}" class="cat-tile${c.status === "COMING SOON" ? " is-soon" : ""}"><span class="cat-num">0${i + 1}</span><span class="display cat-name">${c.label}</span><span class="cat-note">${c.status === "COMING SOON" ? "Coming soon" : "Shop now"} →</span></a>`).join("");
+      document.getElementById("brand-tag").textContent = CONTENT.brand.tagline;
+      document.getElementById("campaigns").innerHTML = CONTENT.campaigns.map(c => `
+        <section class="campaign reveal" aria-label="${esc(c.title)}">
+          <div class="container">
+            <a class="campaign-img" href="${c.href}" tabindex="-1" aria-hidden="true"><img src="${c.image}" alt="${esc(c.alt)}" width="1672" height="941" loading="${c.number === "01" ? "eager" : "lazy"}"></a>
+            <div class="campaign-bar">
+              <div><p class="eyebrow">Campaign ${c.number}</p><h2 class="display">${esc(c.title)}</h2></div>
+              <a class="btn btn-${c.style}" href="${c.href}">${esc(c.button)}</a>
+            </div>
+          </div>
+        </section>`).join("");
+      document.getElementById("newin").textContent = CONTENT.featuredSection.heading;
+      document.getElementById("newin-sub").textContent = CONTENT.featuredSection.supporting;
       const P = CONTENT.orderProcess;
-      document.getElementById("process-heading").textContent = P.heading;
-      document.getElementById("process-supporting").textContent = P.supporting;
-      document.getElementById("process-grid").innerHTML = P.steps.map(s => `<div class="process-step"><span class="process-step-number">${s.step}</span><span class="process-icon">${ICONS[s.icon] || ICONS.box}</span><h3>${s.title}</h3><p>${s.body}</p></div>`).join("");
-      document.getElementById("story-eyebrow").textContent = CONTENT.homeStory.eyebrow;
-      document.getElementById("story-heading").textContent = CONTENT.homeStory.heading;
-      document.getElementById("story-body").textContent = CONTENT.homeStory.body;
-      const cta = document.getElementById("story-cta"); cta.textContent = CONTENT.homeStory.ctaLabel; cta.href = CONTENT.homeStory.ctaHref;
-      const ib = document.getElementById("insta-btn"); ib.href = CONTENT.social.iconicwear.url;
-      ib.innerHTML = `<span class="btn-icon">${ICONS.instagram}</span> ${CONTENT.order.label}`;
+      document.getElementById("process-h").textContent = P.heading;
+      document.getElementById("process-s").textContent = P.supporting;
+      document.getElementById("process-grid").innerHTML = P.steps.map(s => `<div class="step"><b>${s.step}</b><h3>${esc(s.title)}</h3><p>${esc(s.body)}</p></div>`).join("");
       initScrollReveal();
     });
   </script>

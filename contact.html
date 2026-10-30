@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NQ1DWGSQ0M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-NQ1DWGSQ0M');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact — ICONICWEAR</title>
+  <title>Talk to Us — ICONICWEAR</title>
   <meta name="description" content="Reach ICONICWEAR through Instagram or email.">
-  <meta property="og:title" content="Contact — ICONICWEAR">
+  <meta property="og:title" content="Talk to Us — ICONICWEAR">
   <meta property="og:description" content="Reach ICONICWEAR through Instagram or email.">
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/images/icons/favicon-32.png" type="image/png">
@@ -16,29 +25,25 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <nav class="site-nav" id="site-nav"></nav>
+  <nav class="site-nav" id="site-nav" aria-label="Main"></nav>
   <main>
-    <header class="page-header container text-center has-grain">
-      <p class="eyebrow reveal is-visible" style="margin-bottom:18px;">Get in touch</p>
-      <h1 class="display reveal is-visible"><span class="scribble">Let's talk.</span></h1>
+    <header class="page-head container reveal is-visible">
+      <p class="eyebrow">Get in touch</p>
+      <h1 class="display">Talk to us.</h1>
       
     </header>
-    <section class="section-tight"><div class="container text-center" style="max-width:600px;">
-      <p class="lede center-lede reveal" id="contact-sub"></p>
-      <div class="contact-cta-row reveal" style="margin-top:34px;">
-        <a id="ig-btn" class="btn btn-primary" target="_blank" rel="noopener"></a>
-        <a id="mail-btn" class="btn btn-outline"></a>
-      </div>
-      <p class="form-note reveal" style="margin-top:28px;">Ordering? Message us on Instagram with the product name and your size.</p>
+    <section class="section-tight"><div class="container text-center">
+      <p class="lede center" id="c-sub"></p>
+      <div class="contact-row"><a id="c-ig" class="btn btn-primary" target="_blank" rel="noopener"></a><a id="c-mail" class="btn btn-outline"></a></div>
+      <p style="margin-top:26px;font-size:.9rem;color:var(--ink-2)">Ordering? Message us on Instagram with the product name or code and your size. <a href="faq.html" style="text-decoration:underline;text-underline-offset:3px">Read the FAQ</a></p>
     </div></section>
   </main>
   <footer class="site-footer" id="site-footer"></footer>
   <script src="js/content.js"></script>
   <script src="js/main.js"></script>
-<script>document.addEventListener("DOMContentLoaded",()=>{
-  document.getElementById("contact-sub").textContent = CONTENT.contact.supporting;
-  const ig=document.getElementById("ig-btn"); ig.href=CONTENT.social.iconicwear.url; ig.innerHTML=`<span class="btn-icon">${ICONS.instagram}</span> Instagram`;
-  const m=document.getElementById("mail-btn"); m.href="mailto:"+CONTENT.contact.email; m.innerHTML=`<span class="btn-icon">${ICONS.mail}</span> Email us`;
-  initScrollReveal();});</script>
+  <script>document.addEventListener("DOMContentLoaded",()=>{
+    document.getElementById("c-sub").textContent = CONTENT.contact.supporting;
+    const ig=document.getElementById("c-ig"); ig.href=CONTENT.social.iconicwear.url; ig.innerHTML=`<span class="ico">${ICONS.instagram}</span> Instagram`;
+    const m=document.getElementById("c-mail"); m.href="mailto:"+CONTENT.contact.email; m.innerHTML=`<span class="ico">${ICONS.mail}</span> Email us`;});</script>
 </body>
 </html>
