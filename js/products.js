@@ -4,6 +4,8 @@
 const normSizes = (p) => (p.sizes || []).map((s) => typeof s === "string" ? { size: s, status: "AVAILABLE" } : s);
 const priceText = (p) => p.price ? esc(p.price) : '<span class="muted">Price on request</span>';
 const instaUrl = () => CONTENT.social.iconicwear.url;
+const codeOf = (p) => ("code" in p) ? p.code : p.id;   // products without a supplied code show none
+const BADGE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 16h15.5a2.5 2.5 0 0 0 2.5-2.5V13a5 5 0 0 0-5-5H9.5C6 8 4 10.5 3 16z"/><path d="M3 19.5h18"/><path d="M13 11.5h4"/></svg>';
 
 function productStatus(p) {
   const sizes = normSizes(p);
@@ -18,7 +20,7 @@ function cardHTML(p) {
   return `<article class="card reveal">
     <a class="card-media" href="${url}" aria-label="${esc(p.name)}" data-media></a>
     <div class="card-info">
-      <p class="card-code">${esc(p.id)}</p>
+      ${codeOf(p) ? `<p class="card-code">${esc(codeOf(p))}</p>` : ""}
       <h3 class="card-name"><a href="${url}">${esc(p.name)}</a></h3>
       <p class="card-price">${priceText(p)}</p>
       <p class="card-sizes">${sizes}</p>
@@ -76,7 +78,7 @@ function renderProductDetail() {
   document.title = `${p.name} — ICONICWEAR`;
   const sizes = normSizes(p);
   const rows = [["Colour", p.color], ["Fit", p.fit], ["Style", p.style], ["Material", p.material], ["Made in", p.origin && p.origin.replace(/^Made in\s*/i, "")]]
-    .filter((r) => r[1]).map((r) => `<div class="spec-row"><dt>${r[0]}</dt><dd>${esc(r[1])}</dd></div>`).join("");
+    .concat(p.extraSpecs || []).filter((r) => r[1]).map((r) => `<div class="spec-row"><dt>${r[0]}</dt><dd>${esc(r[1])}</dd></div>`).join("");
   const sizeBtns = sizes.map((s) => {
     const sold = s.status === "SOLD OUT";
     return `<button type="button" class="size-btn${sold ? " is-sold" : ""}" data-size="${esc(s.size)}" ${sold ? 'disabled aria-disabled="true"' : ""} aria-pressed="false">${esc(s.size)}${sold ? '<small>Sold out</small>' : ""}</button>`;
@@ -92,12 +94,13 @@ function renderProductDetail() {
           <div class="pd-thumbs" id="pd-thumbs"></div>
         </div>
         <div class="pd-info">
-          <p class="eyebrow">${esc(p.id)} — ${esc(p.category)}</p>
+          <p class="eyebrow">${codeOf(p) ? esc(codeOf(p)) + " — " : ""}${esc(p.category)}</p>
           <h1 class="display pd-title">${esc(p.name)}</h1>
           <p class="pd-price">${priceText(p)}</p>
           ${status !== "AVAILABLE" ? `<p class="pd-status">${esc(status)}</p>` : ""}
           <p class="pd-desc">${esc(p.description)}</p>
           <dl class="spec-table">${rows}</dl>
+          ${(p.badges || []).length ? `<ul class="care-badges" aria-label="Product care">${p.badges.map((b) => `<li class="care-badge">${BADGE_ICON}<span>${esc(b)}</span></li>`).join("")}</ul>` : ""}
           ${sizes.length ? `<div class="pd-sizes"><p class="eyebrow">Size</p><div class="size-list" id="size-list" role="group" aria-label="Select a size">${sizeBtns}</div><p class="size-note">${esc(CONTENT.sizeNote)}</p></div>` : ""}
           <p class="order-line" id="order-line" role="status" aria-live="polite">${sizes.length ? "Select a size to order." : ""}</p>
           <a class="btn btn-primary btn-block order-btn${sizes.length ? " is-disabled" : ""}" id="order-btn" href="${instaUrl()}" target="_blank" rel="noopener" ${sizes.length ? 'aria-disabled="true" tabindex="-1"' : ""}>${esc(CONTENT.order.label)}</a>
@@ -128,7 +131,7 @@ function renderProductDetail() {
     document.querySelectorAll(".size-btn").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
     b.parentElement.querySelectorAll(".size-btn").forEach((x) => x.classList.toggle("is-selected", x === b));
     btn.classList.remove("is-disabled"); btn.removeAttribute("aria-disabled"); btn.removeAttribute("tabindex");
-    line.innerHTML = `Message <strong>${esc(CONTENT.social.iconicwear.handle)}</strong> with <strong>${esc(p.id)} · ${esc(chosen)}</strong>.`;
+    line.innerHTML = `Message <strong>${esc(CONTENT.social.iconicwear.handle)}</strong> with <strong>${esc(codeOf(p) || p.name)} · ${esc(chosen)}</strong>.`;
   }));
 }
 

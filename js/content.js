@@ -113,6 +113,38 @@ const CONTENT = {
       images: ["assets/images/products/iw-ls-001/longsleeve-01.jpg"],
     },
     {
+      id: "redstar-long-sleeve",
+      slug: "redstar-long-sleeve",
+      code: "",                       // no product code supplied — leave empty rather than invent one
+      name: "Redstar Long Sleeve",
+      category: "Long Sleeve T-Shirt",
+      section: "tops",
+      color: "Black",
+      fit: "Regular fit",
+      style: "",
+      material: "",
+      origin: "",
+      extraSpecs: [
+        ["Fabric", "Soft, lightweight and comfortable"],
+        ["GSM", "Approx. 190 (estimated)"],
+        ["Sleeves", "Full sleeve"],
+      ],
+      badges: ["Washed & Ironed"],
+      sizes: [
+        { size: "S", status: "AVAILABLE" },
+        { size: "M", status: "AVAILABLE" },
+        { size: "L", status: "AVAILABLE" },
+      ],
+      price: "",
+      status: "AVAILABLE",
+      shortDescription: "A black graphic long sleeve with a bold striped front graphic, red star detailing and red sleeve graphics.",
+      description: "A black graphic long sleeve featuring a bold striped front graphic, red star detailing and red sleeve graphics. Designed for everyday streetwear with a soft, lightweight and comfortable feel.",
+      images: [
+        "assets/images/products/redstar-long-sleeve/redstar-01-shirt.jpg",   // main: shirt only
+        "assets/images/products/redstar-long-sleeve/redstar-02-outfit.jpg",  // secondary: full outfit
+      ],
+    },
+    {
       id: "ICW-01",
       slug: "icw-01",
       name: "ICONICWEAR Signature Tee",
