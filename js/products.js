@@ -2,7 +2,12 @@
    Driven entirely by CONTENT.products / CONTENT.categories. */
 
 const normSizes = (p) => (p.sizes || []).map((s) => typeof s === "string" ? { size: s, status: "AVAILABLE" } : s);
-const priceText = (p) => p.price ? esc(p.price) : '<span class="muted">Price on request</span>';
+const priceText = (p) => {
+  if (!p.price) return '<span class="muted">Price on request</span>';
+  if (p.originalPrice) return `<span class="price-now"><span class="sr-only">Sale price </span>${esc(p.price)}</span> <s class="price-was"><span class="sr-only">Original price </span>${esc(p.originalPrice)}</s>`;
+  return esc(p.price);
+};
+const saleBadge = () => { const b = document.createElement("span"); b.className = "badge badge-sale"; b.textContent = "Sale"; return b; };
 const instaUrl = () => CONTENT.social.iconicwear.url;
 const codeOf = (p) => ("code" in p) ? p.code : p.id;   // products without a supplied code show none
 const BADGE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 16h15.5a2.5 2.5 0 0 0 2.5-2.5V13a5 5 0 0 0-5-5H9.5C6 8 4 10.5 3 16z"/><path d="M3 19.5h18"/><path d="M13 11.5h4"/></svg>';
@@ -35,6 +40,7 @@ function renderGrid(mount, list) {
     slot.appendChild(buildImage(p.images && p.images[0], p.name));
     const st = productStatus(p);
     if (st !== "AVAILABLE") { const b = document.createElement("span"); b.className = "badge"; b.textContent = st; slot.appendChild(b); }
+    if (p.sale && st === "AVAILABLE") slot.appendChild(saleBadge());
     if (p.images && p.images[1]) { // this product's own second image only
       const a = document.createElement("img"); a.src = p.images[1]; a.alt = ""; a.loading = "lazy"; a.className = "card-alt"; a.onerror = () => a.remove(); slot.appendChild(a);
     }
@@ -101,7 +107,7 @@ function renderProductDetail() {
           <p class="pd-desc">${esc(p.description)}</p>
           <dl class="spec-table">${rows}</dl>
           ${(p.badges || []).length ? `<ul class="care-badges" aria-label="Product care">${p.badges.map((b) => `<li class="care-badge">${BADGE_ICON}<span>${esc(b)}</span></li>`).join("")}</ul>` : ""}
-          ${sizes.length ? `<div class="pd-sizes"><p class="eyebrow">Size</p><div class="size-list" id="size-list" role="group" aria-label="Select a size">${sizeBtns}</div><p class="size-note">${esc(CONTENT.sizeNote)}</p></div>` : ""}
+          ${sizes.length ? `<div class="pd-sizes"><p class="eyebrow">Size</p><div class="size-list" id="size-list" role="group" aria-label="Select a size">${sizeBtns}</div>${p.hideSizeNote ? "" : `<p class="size-note">${esc(CONTENT.sizeNote)}</p>`}</div>` : ""}
           <p class="order-line" id="order-line" role="status" aria-live="polite">${sizes.length ? "Select a size to order." : ""}</p>
           <a class="btn btn-primary btn-block order-btn${sizes.length ? " is-disabled" : ""}" id="order-btn" href="${instaUrl()}" target="_blank" rel="noopener" ${sizes.length ? 'aria-disabled="true" tabindex="-1"' : ""}>${esc(CONTENT.order.label)}</a>
           <ul class="pd-links"><li><a href="shipping.html">Shipping · ${esc(CONTENT.shipping.charge)}, around 2–5 days</a></li><li><a href="returns.html">Returns &amp; exchanges · report within 12 hours</a></li></ul>
@@ -114,6 +120,7 @@ function renderProductDetail() {
   const imgs = p.images || [];
   const show = (i) => {
     main.innerHTML = ""; main.appendChild(buildImage(imgs[i], `${p.name} — image ${i + 1}`));
+    if (p.sale) main.appendChild(saleBadge());
     thumbs.querySelectorAll("button").forEach((b, j) => b.classList.toggle("is-active", j === i));
   };
   if (imgs.length > 1) imgs.forEach((src, i) => {

@@ -135,7 +135,9 @@ const CONTENT = {
         { size: "M", status: "AVAILABLE" },
         { size: "L", status: "AVAILABLE" },
       ],
-      price: "",
+      price: "PKR 3,500",
+      originalPrice: "PKR 4,500",   // shown crossed out beside the sale price
+      sale: true,                   // shows the SALE badge on cards and the product page
       status: "AVAILABLE",
       shortDescription: "A black graphic long sleeve with a bold striped front graphic, red star detailing and red sleeve graphics.",
       description: "A black graphic long sleeve featuring a bold striped front graphic, red star detailing and red sleeve graphics. Designed for everyday streetwear with a soft, lightweight and comfortable feel.",
@@ -151,15 +153,16 @@ const CONTENT = {
       category: "Premium T-shirt",
       section: "tops",
       color: "White",
-      fit: "Regular — not tight, not baggy",
+      fit: "Baggy / Oversized fit",
       style: "",
-      material: "100% cotton, 200–220 GSM, soft-touch, pre-shrunk, ribbed crew neck",
+      material: "100% Cotton, 220 GSM, soft-touch fabric, pre-shrunk, with a ribbed crew neck.",
       origin: "",
-      sizes: ["S", "M", "L", "XL", "XXL"],
+      sizes: ["S", "M", "L"],
+      hideSizeNote: true,   // no size chart exists, so the "coming soon" note is hidden for this product
       price: "PKR 1,500",
       status: "AVAILABLE",
       shortDescription: "A clean signature tee built around comfort, structure and everyday streetwear.",
-      description: "A clean signature tee designed around comfort, structure and everyday streetwear. The focus is a soft premium feel, a clean silhouette and understated ICONICWEAR branding, finished with a ribbed crew neck.",
+      description: "A clean signature tee designed around comfort, quality and everyday streetwear. Featuring a relaxed baggy silhouette, premium 220 GSM cotton fabric and understated ICONICWEAR branding. Designed for a comfortable feel, structured fit and effortless everyday wear.",
       images: [
         "assets/images/products/icw-01/tee-04-hang-front.jpg",
         "assets/images/products/icw-01/tee-05-hang-back.jpg",
