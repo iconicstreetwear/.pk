@@ -23,7 +23,7 @@ const CONTENT = {
       children: [
         { label: "Tops", href: "tops.html" },
         { label: "Bottoms", href: "bottoms.html" },
-        { label: "Cult", href: "cult.html", tag: "Soon" },
+        { label: "Cult", href: "cult.html" },
       ],
     },
     {
@@ -64,7 +64,7 @@ const CONTENT = {
       key: "cult", number: "03", title: "Cult",
       image: "assets/images/campaign/campaign-03-cult.jpg",
       alt: "ICONICWEAR campaign: packaged pieces floating in a dark warehouse",
-      href: "cult.html", button: "Cult — Coming soon →", style: "outline",
+      href: "cult.html", button: "View Cult →", style: "outline",
     },
   ],
 
@@ -88,30 +88,6 @@ const CONTENT = {
      price: leave "" until confirmed (the site shows "Price on request").
      images: each product only ever uses its own images.           */
   products: [
-    {
-      id: "IW-LS-001",
-      slug: "iw-ls-001",
-      name: "Savage Graphic Longsleeve",
-      category: "Graphic long-sleeve tee",
-      section: "tops",
-      color: "Black",
-      fit: "Regular / slightly relaxed",
-      style: "Graphic long-sleeve tee",
-      material: "",
-      origin: "Made in Pakistan",
-      sizes: [
-        { size: "S", status: "AVAILABLE" },
-        { size: "M", status: "AVAILABLE" },
-        { size: "L", status: "AVAILABLE" },
-        { size: "XL", status: "SOLD OUT" },
-      ],
-      price: "",
-      status: "AVAILABLE",
-      shortDescription: "A black graphic long-sleeve with a bold portrait, red star details and signature sleeve graphics.",
-      description: "A black graphic long-sleeve featuring a bold portrait, red star details, and signature sleeve graphics. Designed for a distinctive everyday streetwear look.",
-      // TEMPORARY: unaltered crop of the campaign photo. Replace with the final product photos.
-      images: ["assets/images/products/iw-ls-001/longsleeve-01.jpg"],
-    },
     {
       id: "redstar-long-sleeve",
       slug: "redstar-long-sleeve",
@@ -180,7 +156,7 @@ const CONTENT = {
   categories: {
     tops:        { title: "Tops", eyebrow: "Our Collection", state: "open", lede: "T-shirts, long-sleeves and more.", empty: "" },
     bottoms:     { title: "Bottoms", eyebrow: "Our Collection", state: "open", lede: "", empty: "New bottoms are on the way." },
-    cult:        { title: "Cult", eyebrow: "Our Collection", state: "soon", line: "The Cult collection isn't here yet." },
+    cult:        { title: "Cult", eyebrow: "Our Collection", state: "open", lede: "", emptyHeading: "", empty: "No pieces here yet. Follow @iconicstreetwear.pk for updates." },
     watches:     { title: "Watches", eyebrow: "Sidequest", state: "open", lede: "", empty: "Watches are being added. Message us on Instagram for availability." },
     "wallets-bags": { title: "Wallets & Bags", eyebrow: "Sidequest", state: "open", lede: "", empty: "Wallets & bags are being added. Message us on Instagram for availability." },
     eyewear:     { title: "Eyewear", eyebrow: "Sidequest", state: "soon", line: "Eyewear is coming soon." },

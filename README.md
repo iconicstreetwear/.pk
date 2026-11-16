@@ -17,7 +17,6 @@ Static HTML / CSS / vanilla JS. Deploys to GitHub Pages (relative paths, no buil
 - Google tag (G-NQ1DWGSQ0M) is on every page; the Search Console verification meta is on `index.html`.
 - Ordering is via Instagram only — no checkout or payments.
 - `men.html`, `women.html`, `accessories.html` are redirect stubs so old links don't break.
-- `assets/images/products/iw-ls-001/longsleeve-01.jpg` is a TEMPORARY crop of the campaign photo — replace with the final product photos.
 
 - `redstar-long-sleeve` has no product code or price supplied: both are left blank in `js/content.js` (`code`, `price`). Fill them in when ready.
 - Optional product fields: `code` (displayed code; blank hides it), `extraSpecs` (extra spec rows), `badges` (e.g. "Washed & Ironed").

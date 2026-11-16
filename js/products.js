@@ -59,8 +59,10 @@ function initGrids() {
     const list = CONTENT.products.filter((p) => p.section === key);
     if (list.length) renderGrid(cat, list);
     else {
-      const msg = (CONTENT.categories[key] || {}).empty || "New pieces are on the way.";
-      cat.outerHTML = `<div class="empty-state reveal is-visible"><p class="display">Coming soon</p><p>${esc(msg)}</p><a class="btn btn-outline" href="${instaUrl()}" target="_blank" rel="noopener">Follow on Instagram →</a></div>`;
+      const cfg = CONTENT.categories[key] || {};
+      const msg = cfg.empty || "New pieces are on the way.";
+      const heading = ("emptyHeading" in cfg) ? cfg.emptyHeading : "Coming soon";
+      cat.outerHTML = `<div class="empty-state reveal is-visible">${heading ? `<p class="display">${esc(heading)}</p>` : ""}<p>${esc(msg)}</p><a class="btn btn-outline" href="${instaUrl()}" target="_blank" rel="noopener">Follow on Instagram →</a></div>`;
     }
   }
   const all = document.getElementById("all-grid");
